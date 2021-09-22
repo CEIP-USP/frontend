@@ -4,11 +4,11 @@
     "es2021": true
   },
   "extends": [
+    "prettier",
+    "plugin:prettier/recommended",
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "plugin:prettier/recommended"
+    "plugin:@typescript-eslint/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -18,7 +18,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "plugins": ["prettier", "react", "@typescript-eslint"],
   "rules": {
     "prettier/prettier": "error",
     "indent": ["error", 2],

@@ -1,3 +1,5 @@
+import { FetchHttpClient } from './FetchHttpClient';
+
 interface IContact {
   email?: string;
   phone?: string[];
@@ -35,7 +37,7 @@ export class FormHandler {
     };
   }
 
-  handleSubmit(httpClient: IHttpClient): Promise<void> {
+  handleSubmit(httpClient: IHttpClient = new FetchHttpClient()): Promise<void> {
     const { isValid, errors } = this.validateForm();
 
     if (!isValid) {

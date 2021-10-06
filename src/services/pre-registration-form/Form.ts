@@ -32,7 +32,7 @@ export class FormHandler {
       errors.push('É necessário informar ao menos uma forma de contato');
 
     return {
-      isValid: errors.length > 0,
+      isValid: errors.length === 0,
       errors,
     };
   }

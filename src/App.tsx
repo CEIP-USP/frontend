@@ -1,8 +1,7 @@
-import Card from './components/Card';
-import Home from './pages/Home';
 import React from 'react';
+import Home from './pages/Home';
 
-function App(): JSX.Element {
+function App() {
   return (
     <div className="App">
       <Home />

@@ -6,9 +6,8 @@ module.exports = {
       colors: {
         'background-default': '#F4F3EE',
         'card-default': '#BCB8B1',
-      },
-      transitionProperty: {
-        height: 'height',
+        'button-confirmed': '#5C95FF',
+        'button-unconfirmed': '#B75260',
       },
     },
     fontFamily: {

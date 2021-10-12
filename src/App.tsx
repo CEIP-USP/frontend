@@ -1,10 +1,10 @@
 import React from 'react';
-import Card from './components/Card';
+import PreRegistrationForm from './components/PreRegistrationForm';
 
 function App(): JSX.Element {
   return (
     <div className="App">
-      <Card />
+      <PreRegistrationForm />
     </div>
   );
 }

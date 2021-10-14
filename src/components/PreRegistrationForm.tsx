@@ -9,13 +9,15 @@ function PreRegistrationForm(): JSX.Element {
     email: '',
     phone: '',
     address: '',
+    hasSecondShot: '',
     dayOfSecondShot: new Date(),
     cpf: '',
   });
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    const { name, email, phone, address, dayOfSecondShot, cpf } = formData;
+    const { name, email, phone, address, hasSecondShot, dayOfSecondShot, cpf } =
+      formData;
 
     const formHandler = new FormHandler(
       name,
@@ -29,7 +31,7 @@ function PreRegistrationForm(): JSX.Element {
 
   return (
     <>
-      <h1>Cadastre-se</h1>
+      <h1 className="my-8 text-xl font-bold text-center">Cadastre-se</h1>
       <form
         onSubmit={handleSubmit}
         className="flex flex-col space-y-4 my-4 mx-3 lg:w-1/2 lg:mx-auto"
@@ -130,6 +132,9 @@ function PreRegistrationForm(): JSX.Element {
                 name="second_shot"
                 type="radio"
                 value="sim"
+                onChange={(e) =>
+                  setFormData({ ...formData, hasSecondShot: e.target.value })
+                }
               />
               <span>Sim</span>
             </label>
@@ -139,31 +144,36 @@ function PreRegistrationForm(): JSX.Element {
                 name="second_shot"
                 type="radio"
                 value="nao"
+                onChange={(e) =>
+                  setFormData({ ...formData, hasSecondShot: e.target.value })
+                }
               />
               <span>Não</span>
             </label>
           </div>
         </div>
 
-        <div className="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 rounded p-1">
-          <div className="-mt-3 absolute tracking-wider px-1 text-xs">
-            <label
-              htmlFor="day_of_second_shot"
-              className="bg-white text-gray-600 px-1"
-            >
-              Quando?
-            </label>
+        {formData.hasSecondShot === 'sim' && (
+          <div className="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 rounded p-1">
+            <div className="-mt-3 absolute tracking-wider px-1 text-xs">
+              <label
+                htmlFor="day_of_second_shot"
+                className="bg-white text-gray-600 px-1"
+              >
+                Quando?
+              </label>
+            </div>
+            <DatePicker
+              id="day_of_second_shot"
+              autoComplete="false"
+              className="py-2 px-1 bg-transparent text-gray-900 outline-none block h-full w-full"
+              selected={formData.dayOfSecondShot}
+              onChange={(date) =>
+                setFormData({ ...formData, dayOfSecondShot: date as Date })
+              }
+            />
           </div>
-          <DatePicker
-            id="day_of_second_shot"
-            autoComplete="false"
-            className="py-2 px-1 bg-transparent text-gray-900 outline-none block h-full w-full"
-            selected={formData.dayOfSecondShot}
-            onChange={(date) =>
-              setFormData({ ...formData, dayOfSecondShot: date as Date })
-            }
-          />
-        </div>
+        )}
 
         <button
           type="submit"

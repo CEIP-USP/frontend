@@ -55,5 +55,5 @@ const Card = ({ status, statusColor, name, phoneNumber, email }: CardProps) => {
     </div>
   );
 };
-
+\\
 export default Card;

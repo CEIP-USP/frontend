@@ -1,28 +1,18 @@
+import Card, { CardProps } from './Card';
+
 import React from 'react';
 
-import Card from './Card';
+export type CardListProps = {
+  registrations: CardProps[];
+};
 
-import { CardProps } from './Card';
-
-const mockCards: [CardProps] = [
-  {
-    name: 'Josefino Pinto',
-    email: 'josefino@gmail.com',
-    phoneNumber: '(11) 99144-3505',
-    status: 'Confirmado',
-    statusColor: 'button-confirmed',
-  },
-];
-
-const CardList = () => {
+const CardList = (props: CardListProps) => {
   return (
-    <Card
-      name="Josefino Pinto"
-      email="josefino@gmail.com"
-      phoneNumber="(11) 99144-3505"
-      status="Confirmado"
-      statusColor="button-confirmed"
-    />
+    <div className="flex flex-col space-y-4 items-strech">
+      {props.registrations.map((registration, i) => (
+        <Card key={i} {...registration} />
+      ))}
+    </div>
   );
 };
 

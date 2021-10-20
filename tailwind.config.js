@@ -5,7 +5,8 @@ module.exports = {
     extend: {
       colors: {
         'background-default': '#F4F3EE',
-        'card-default': '#BCB8B1',
+        'card-default': '#E5E5E5',
+        'card-border-default': '#BCB8B1',
         'button-confirmed': '#5C95FF',
         'button-unconfirmed': '#B75260',
       },
@@ -15,7 +16,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      placeholderColor: ['hover', 'active'],
+    },
   },
   plugins: [],
 };

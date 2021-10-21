@@ -1,4 +1,4 @@
-import { FetchHttpClient } from './FetchHttpClient';
+import { AxiosHttpClient } from './AxiosHttpClient';
 
 interface IContact {
   email?: string;
@@ -37,7 +37,7 @@ export class FormHandler {
     };
   }
 
-  handleSubmit(httpClient: IHttpClient = new FetchHttpClient()): Promise<void> {
+  handleSubmit(httpClient: IHttpClient = new AxiosHttpClient()): Promise<void> {
     const { isValid, errors } = this.validateForm();
 
     if (!isValid) {

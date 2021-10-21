@@ -1,5 +1,5 @@
 import React from 'react';
-import PreRegistrationForm from './components/PreRegistrationForm';
+import PreRegistrationForm from './components/PreRegistrationForm/index';
 
 function App(): JSX.Element {
   return (

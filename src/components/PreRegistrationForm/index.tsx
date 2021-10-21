@@ -13,6 +13,8 @@ function PreRegistrationForm(): JSX.Element {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    password: '',
+    passwordConfirmation: '',
     phone: '',
     address: '',
     hasSecondShot: '',
@@ -56,37 +58,35 @@ function PreRegistrationForm(): JSX.Element {
   return (
     <>
       <h1 className="my-8 text-xl font-bold text-center">Cadastre-se</h1>
-      <form className="flex flex-col space-y-4 my-4 mx-3 lg:w-1/2 lg:mx-auto">
+      <div className="flex flex-col space-y-4 my-4 mx-3 lg:w-1/2 lg:mx-auto">
         {isStepOne ? (
-          <StepOne setField={setField} />
+          <>
+            <StepOne
+              currentDate={formData.dayOfSecondShot}
+              setField={setField}
+            />
+            <button
+              className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+              onClick={() => setIsStepOne(false)}
+            >
+              Próximo
+            </button>
+          </>
         ) : (
-          <StepTwo setField={setField} />
+          <>
+            <StepTwo setField={setField} />
+            <button
+              className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+              onClick={() => setIsStepOne(true)}
+            >
+              Voltar
+            </button>
+            <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+              Cadastrar
+            </button>
+          </>
         )}
-        {isStepOne ? (
-          <button
-            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-            onClick={() => setIsStepOne(false)}
-          >
-            Voltar
-          </button>
-        ) : null}
-        {!isStepOne ? (
-          <button
-            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-            type="button"
-            onClick={() => setIsStepOne(true)}
-          >
-            Próximo
-          </button>
-        ) : (
-          <button
-            type="button"
-            className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-          >
-            Cadastrar
-          </button>
-        )}
-      </form>
+      </div>
     </>
   );
 }

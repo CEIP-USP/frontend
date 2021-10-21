@@ -1,10 +1,10 @@
 import React from 'react';
-import Card from './components/Card';
+import Login from './components/login/Login';
 
 function App(): JSX.Element {
   return (
     <div className="App">
-      <Card />
+      <Login />
     </div>
   );
 }

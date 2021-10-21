@@ -1,18 +1,13 @@
-import React, { FormEvent, useState } from 'react';
+import React, { useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FormHandler } from '../../services/pre-registration-form/Form';
 import StepOne from './StepOne';
 import StepTwo from './StepTwo';
 
-interface IFormData {
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-  hasSecondShot: string;
-  dayOfSecondShot: Date;
-  cpf: string;
-}
+type Document = {
+  type: string;
+  value?: string;
+};
 
 function PreRegistrationForm(): JSX.Element {
   const [formData, setFormData] = useState({
@@ -22,50 +17,64 @@ function PreRegistrationForm(): JSX.Element {
     address: '',
     hasSecondShot: '',
     dayOfSecondShot: new Date(),
-    cpf: '',
+    document: {
+      type: '',
+      value: '',
+    },
   });
 
-  const [step, setStep] = useState(0);
+  const [isStepOne, setIsStepOne] = useState(true);
 
-  const wrapperSetForm = (field: string, value: string | Date) => {
+  const setField = (field: string, value: string | Date | Document) => {
     setFormData({
       ...formData,
       [field]: value,
     });
   };
 
-  function handleSubmit() {
-    const { name, email, phone, address, hasSecondShot, dayOfSecondShot, cpf } =
-      formData;
+  // function handleSubmit() {
+  //   const {
+  //     name,
+  //     email,
+  //     phone,
+  //     address,
+  //     hasSecondShot,
+  //     dayOfSecondShot,
+  //     document,
+  //   } = formData;
 
-    const formHandler = new FormHandler(
-      name,
-      { email, phone: [phone], address },
-      dayOfSecondShot,
-      cpf
-    );
+  //   const formHandler = new FormHandler(
+  //     name,
+  //     { email, phone: [phone], address },
+  //     dayOfSecondShot,
+  //     document
+  //   );
 
-    formHandler.handleSubmit();
-  }
+  //   formHandler.handleSubmit();
+  // }
 
   return (
     <>
       <h1 className="my-8 text-xl font-bold text-center">Cadastre-se</h1>
       <form className="flex flex-col space-y-4 my-4 mx-3 lg:w-1/2 lg:mx-auto">
-        {!step ? <StepOne /> : <StepTwo />}
-        {step ? (
+        {isStepOne ? (
+          <StepOne setField={setField} />
+        ) : (
+          <StepTwo setField={setField} />
+        )}
+        {isStepOne ? (
           <button
             className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-            onClick={() => setStep(0)}
+            onClick={() => setIsStepOne(false)}
           >
             Voltar
           </button>
         ) : null}
-        {!step ? (
+        {!isStepOne ? (
           <button
             className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
             type="button"
-            onClick={() => setStep(1)}
+            onClick={() => setIsStepOne(true)}
           >
             Próximo
           </button>
@@ -73,7 +82,6 @@ function PreRegistrationForm(): JSX.Element {
           <button
             type="button"
             className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-            onClick={handleSubmit}
           >
             Cadastrar
           </button>
@@ -82,5 +90,7 @@ function PreRegistrationForm(): JSX.Element {
     </>
   );
 }
+
+export type SetField = (field: string, value: string | Date | Document) => void;
 
 export default PreRegistrationForm;

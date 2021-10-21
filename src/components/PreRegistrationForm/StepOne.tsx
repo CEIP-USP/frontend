@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { SetField } from '.';
 
-const StepOne = (): JSX.Element => {
+const StepOne = ({ setField }: { setField: SetField }): JSX.Element => {
   const [documentType, setDocumentType] = useState('CPF');
 
   return (
@@ -17,6 +18,7 @@ const StepOne = (): JSX.Element => {
           autoComplete="false"
           className="py-2 px-1 text-gray-900 outline-none block h-full w-full"
           required
+          onChange={(e) => setField(e.target.id, e.target.value)}
         />
       </div>
 
@@ -51,7 +53,7 @@ const StepOne = (): JSX.Element => {
               name="documentType"
               type="radio"
               value=""
-              onClick={() => setDocumentType('')}
+              onClick={() => setField('document', { type: 'undocumented' })}
             />
             <span>Não tenho documento</span>
           </label>
@@ -70,6 +72,12 @@ const StepOne = (): JSX.Element => {
             type="text"
             autoComplete="false"
             className="py-2 px-1 text-gray-900 outline-none block h-full w-full"
+            onChange={(e) =>
+              setField(e.target.id, {
+                type: documentType,
+                value: e.target.value,
+              })
+            }
           />
         </div>
       )}

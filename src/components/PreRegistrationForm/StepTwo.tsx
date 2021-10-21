@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
+import { SetField } from '.';
 
-const StepTwo = (): JSX.Element => {
+const StepTwo = ({ setField }: { setField: SetField }): JSX.Element => {
   const [hasSecondShot, setHasSecondShot] = useState('');
   const [dayOfSecondShot, setDayOfSecondShot] = useState(new Date());
 

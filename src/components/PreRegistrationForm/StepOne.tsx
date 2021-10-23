@@ -1,17 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import DatePicker from 'react-datepicker';
-import { SetField } from '.';
+import { FormData, SetField } from '.';
 
 const StepOne = ({
-  currentDate,
+  formData,
   setField,
 }: {
-  currentDate: Date;
+  formData: FormData;
   setField: SetField;
 }): JSX.Element => {
-  const [documentType, setDocumentType] = useState('CPF');
-  const [hasSecondShot, setHasSecondShot] = useState('');
-
   return (
     <div className="space-y-6">
       <div className="space-y-4">
@@ -28,6 +25,7 @@ const StepOne = ({
           <input
             id="name"
             type="text"
+            value={formData.name}
             autoComplete="false"
             className="py-2 px-1 text-gray-900 outline-none block h-full w-full"
             required
@@ -44,6 +42,7 @@ const StepOne = ({
           <input
             id="email"
             type="email"
+            value={formData.email}
             autoComplete="false"
             className="py-2 px-1 text-gray-900 outline-none block h-full w-full"
             onChange={(e) => setField(e.target.id, e.target.value)}
@@ -59,6 +58,7 @@ const StepOne = ({
           <input
             id="password"
             type="password"
+            value={formData.password}
             autoComplete="false"
             className="py-2 px-1 text-gray-900 outline-none block h-full w-full"
             onChange={(e) => setField(e.target.id, e.target.value)}
@@ -75,8 +75,9 @@ const StepOne = ({
             </label>
           </div>
           <input
-            id="passwordonfirmation"
+            id="passwordConfirmation"
             type="password"
+            value={formData.passwordConfirmation}
             autoComplete="false"
             className="py-2 px-1 text-gray-900 outline-none block h-full w-full"
             onChange={(e) => setField(e.target.id, e.target.value)}
@@ -96,8 +97,10 @@ const StepOne = ({
               name="documentType"
               type="radio"
               value="CPF"
-              defaultChecked
-              onClick={(e) => setDocumentType(e.currentTarget.value)}
+              checked={formData.document.type === 'CPF'}
+              onChange={(e) =>
+                setField('document', { type: e.currentTarget.value, value: '' })
+              }
             />
             <span>CPF</span>
           </label>
@@ -107,7 +110,10 @@ const StepOne = ({
               name="documentType"
               type="radio"
               value="RG"
-              onClick={(e) => setDocumentType(e.currentTarget.value)}
+              checked={formData.document.type === 'RG'}
+              onChange={(e) =>
+                setField('document', { type: e.currentTarget.value, value: '' })
+              }
             />
             <span>RG</span>
           </label>
@@ -117,20 +123,20 @@ const StepOne = ({
               name="documentType"
               type="radio"
               value="undocumented"
-              onClick={(e) => {
-                setDocumentType(e.currentTarget.value);
-                setField('document', { type: e.currentTarget.value });
-              }}
+              checked={formData.document.type === 'undocumented'}
+              onChange={(e) =>
+                setField('document', { type: e.currentTarget.value, value: '' })
+              }
             />
             <span>Não tenho documento</span>
           </label>
         </div>
 
-        {documentType !== 'undocumented' && (
+        {formData.document.type !== 'undocumented' && (
           <div className="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 rounded p-1">
             <div className="-mt-3 absolute tracking-wider px-1 text-xs">
               <label htmlFor="document" className="bg-white text-gray-600 px-1">
-                {documentType}
+                {formData.document.type}
               </label>
             </div>
             <input
@@ -138,9 +144,10 @@ const StepOne = ({
               type="text"
               autoComplete="false"
               className="py-2 px-1 text-gray-900 outline-none block h-full w-full"
+              value={formData.document.value}
               onChange={(e) =>
                 setField(e.target.id, {
-                  type: documentType,
+                  type: formData.document.type,
                   value: e.target.value,
                 })
               }
@@ -158,7 +165,8 @@ const StepOne = ({
               name="second_shot"
               type="radio"
               value="sim"
-              onClick={() => setHasSecondShot('sim')}
+              checked={formData.hasSecondShot === 'sim'}
+              onChange={(e) => setField('hasSecondShot', e.currentTarget.value)}
             />
             <span>Sim</span>
           </label>
@@ -168,12 +176,13 @@ const StepOne = ({
               name="second_shot"
               type="radio"
               value="nao"
-              onClick={() => setHasSecondShot('nao')}
+              checked={formData.hasSecondShot === 'nao'}
+              onChange={(e) => setField('hasSecondShot', e.currentTarget.value)}
             />
             <span>Não</span>
           </label>
         </div>
-        {hasSecondShot === 'sim' && (
+        {formData.hasSecondShot === 'sim' && (
           <div className="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 rounded p-1">
             <div className="-mt-3 absolute tracking-wider px-1 text-xs">
               <label
@@ -187,7 +196,7 @@ const StepOne = ({
               id="dayOfSecondShot"
               autoComplete="false"
               className="py-2 px-1 bg-transparent text-gray-900 outline-none block h-full w-full"
-              selected={currentDate}
+              selected={formData.dayOfSecondShot}
               onChange={(data) => setField('dayOfSecondShot', data as Date)}
             />
           </div>

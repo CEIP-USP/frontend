@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
-import { FormHandler } from '../../services/pre-registration-form/Form';
-import StepOne from './StepOne';
-import StepTwo from './StepTwo';
+import { FormHandler } from '../services/preRegistration/Form';
+import StepOne from '../components/PreRegistration/StepOne';
+import StepTwo from '../components/PreRegistration/StepTwo';
+import { Document } from './PreRegistration.interface';
 
-function PreRegistrationForm(): JSX.Element {
+function PreRegistration(): JSX.Element {
   const [errors, setErrors] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
@@ -65,11 +66,18 @@ function PreRegistrationForm(): JSX.Element {
           {isStepOne ? 'Seja Bem Vindo(a)!' : 'Dados do perfil'}
         </h1>
 
-        <ul>
-          {errors.map((error) => (
-            <li key={error}>{error}</li>
-          ))}
-        </ul>
+        {errors.length > 0 && (
+          <div className="my-5">
+            <h1 className="mt-4 mb-2 text-2xl lg:text-center">
+              Erros encontrados
+            </h1>
+            <ul className="list-disc list-inside ">
+              {errors.map((error) => (
+                <li key={error}>{error}</li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <div className="flex flex-col space-y-4">
           {isStepOne ? (
@@ -117,23 +125,4 @@ function PreRegistrationForm(): JSX.Element {
   );
 }
 
-export type Document = {
-  type: string;
-  value?: string;
-};
-
-export type FormData = {
-  name: string;
-  email: string;
-  password: string;
-  passwordConfirmation: string;
-  phone: string;
-  address: string;
-  hasSecondShot: string;
-  dayOfSecondShot: Date;
-  document: Document;
-};
-
-export type SetField = (field: string, value: string | Date | Document) => void;
-
-export default PreRegistrationForm;
+export default PreRegistration;

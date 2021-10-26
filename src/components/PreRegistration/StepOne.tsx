@@ -1,6 +1,6 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
-import { FormData, SetField } from '.';
+import { FormData, SetField } from '../../pages/PreRegistration.interface';
 
 const StepOne = ({
   formData,

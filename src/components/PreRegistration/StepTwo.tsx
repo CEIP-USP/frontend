@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormData, SetField } from '.';
+import { FormData, SetField } from '../../pages/PreRegistration.interface';
 
 const StepTwo = ({
   formData,

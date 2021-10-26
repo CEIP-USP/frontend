@@ -1,10 +1,10 @@
 import React from 'react';
-import PreRegistrationForm from './components/PreRegistrationForm/index';
+import PreRegistration from './pages/PreRegistration';
 
 function App(): JSX.Element {
   return (
     <div className="App">
-      <PreRegistrationForm />
+      <PreRegistration />
     </div>
   );
 }

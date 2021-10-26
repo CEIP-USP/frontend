@@ -1,9 +1,13 @@
 import { AxiosHttpClient } from './AxiosHttpClient';
-import { Document } from '../../components/PreRegistrationForm/index';
+import { Document, FormData } from '../../pages/PreRegistration.interface';
 
 export interface IHttpClient {
-  post: (url: string, body: any) => Promise<any>;
+  post: <T>(url: string, body: T) => Promise<T>;
 }
+
+type RequestData = Omit<FormData, 'passwordConfirmation' | 'hasSecondShot'> & {
+  hasSecondShot: boolean;
+};
 
 export class FormHandler {
   constructor(
@@ -21,25 +25,27 @@ export class FormHandler {
   public validateForm(): { isValid: boolean; errors: string[] } {
     const errors: string[] = [];
 
-    if (!this.name.trim()) errors.push('Nome está vazio');
+    if (!this.name.trim()) errors.push('O campo Nome precisa estar preenchido');
 
-    if (!this.email.trim()) errors.push('Email está vazio');
+    if (!this.email.trim())
+      errors.push('O campo Email precisa estar preenchido');
 
-    if (!this.password.trim()) errors.push('Senha está vazia');
+    if (!this.password.trim())
+      errors.push('O campo Senha precisa estar preenchido');
 
     if (!this.passwordConfirmation.trim())
-      errors.push('Confirmação de senha está vazia');
+      errors.push('O campo Confirmação de Senha precisa estar preenchido');
 
     if (this.document.type !== 'undocumented' && !this.document.value?.trim())
-      errors.push(`${this.document.type} está vazio`);
+      errors.push(`O campo ${this.document.type} está vazio`);
 
     if (!this.hasSecondShot.trim())
       errors.push(
-        'É necessário informar se tomou a segunda dose da vacina do COVID-19'
+        'É necessário informar se tomou a segunda dose da vacina contra a Covid-19'
       );
 
     if (this.password !== this.passwordConfirmation)
-      errors.push('As senhas não batem');
+      errors.push('As senhas digitadas precisam ser iguais');
 
     return {
       isValid: errors.length === 0,
@@ -47,7 +53,9 @@ export class FormHandler {
     };
   }
 
-  handleSubmit(httpClient: IHttpClient = new AxiosHttpClient()): Promise<void> {
+  handleSubmit(
+    httpClient: IHttpClient = new AxiosHttpClient()
+  ): Promise<RequestData> {
     const { isValid, errors } = this.validateForm();
 
     if (!isValid) {
@@ -60,7 +68,7 @@ export class FormHandler {
       delete document.value;
     }
 
-    const requestBody = {
+    const requestBody: RequestData = {
       name: this.name,
       email: this.email,
       password: this.password,

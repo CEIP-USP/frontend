@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
-import { FormHandler } from '../services/preRegistration/Form';
-import StepOne from '../components/PreRegistration/StepOne';
-import StepTwo from '../components/PreRegistration/StepTwo';
+import { FormHandler } from '../../services/PreRegistration/Form';
+import StepOne from '../../components/PreRegistration/StepOne';
+import StepTwo from '../../components/PreRegistration/StepTwo';
 import { Document } from './PreRegistration.interface';
 
 function PreRegistration(): JSX.Element {

@@ -11,7 +11,9 @@ describe(FormHandler, () => {
     let handler: FormHandler;
 
     beforeEach(() => {
-      handler = new FormHandler('', {}, new Date(), '');
+      handler = new FormHandler('', '', '', '', '', '', '', new Date(), {
+        type: 'undocumented',
+      });
     });
 
     it('rejects the promise when validation fails', () => {

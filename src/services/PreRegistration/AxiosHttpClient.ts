@@ -1,8 +1,9 @@
-import axios from 'axios';
 import { IHttpClient } from './Form';
+import { startAxios } from '../../hooks/Axios';
 
 export class AxiosHttpClient implements IHttpClient {
-  public post(url: string, body: any): Promise<any> {
+  public post<T>(url: string, body: T): Promise<T> {
+    const axios = startAxios();
     return axios.post(url, body);
   }
 }

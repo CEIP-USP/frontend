@@ -1,11 +1,11 @@
 import { RegistrationsQuery } from './query';
-import { useBackendAxios } from '../../hooks/useBackendAxios';
+import { startAxios } from '../../hooks/Axios';
 
 // Concretização da spec
 export const useHttpRegistrationsQuery: () => RegistrationsQuery = () => {
-  const http = useBackendAxios();
+  const axios = startAxios();
   return (params) =>
-    http
+    axios
       .get('/profile', { params })
       .then((response) => response.data as any)
       .then(({ data, ...params }) => ({

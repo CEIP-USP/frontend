@@ -5,6 +5,7 @@ import { CardProps } from '../components/Card';
 import { RegistrationsQueryResponse } from '../services/registrations-query/query';
 import SearchBar from '../components/SearchBar';
 import { useRegistrationsQuery } from '../services/registrations-query/query-hook';
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
 
 const Home: React.FC = () => {
   const query = useRegistrationsQuery();
@@ -44,15 +45,19 @@ const Home: React.FC = () => {
     setPageParams({ page: 1, pageSize });
   }, [searchTerm]);
 
-  useEffect(() => {
+  const doQuery = AwesomeDebouncePromise(() => {
     const { page, pageSize } = pageParams;
-    query({
+    return query({
       q: searchTerm + '',
       skip: (page - 1) * pageSize,
       take: pageSize,
     }).then((res) =>
       setRegistrationsResponses([...registrationsResponses, res])
     );
+  }, 1000);
+
+  useEffect(() => {
+    doQuery();
   }, [pageParams]);
 
   const fetchMore = () => {
@@ -63,7 +68,10 @@ const Home: React.FC = () => {
     <main className="bg-background-default min-h-screen">
       <div className="p-4 container mx-auto max-w-screen-md">
         <form className="mb-4" onSubmit={onSubmitSearchTerm}>
-          <SearchBar ref={searchBarRef} />
+          <SearchBar
+            onChange={(event) => setSearchTerm(event.target.value)}
+            value={searchTerm}
+          />
         </form>
         <CardList registrations={registrations} />
         <div className="flex items-center justify-center mt-4">

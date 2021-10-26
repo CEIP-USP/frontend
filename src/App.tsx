@@ -1,10 +1,10 @@
+import Home from './pages/Home';
 import React from 'react';
-import Card from './components/Card';
 
-function App(): JSX.Element {
+function App() {
   return (
     <div className="App">
-      <Card />
+      <Home />
     </div>
   );
 }

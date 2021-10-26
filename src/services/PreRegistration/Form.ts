@@ -1,5 +1,8 @@
 import { AxiosHttpClient } from './AxiosHttpClient';
-import { Document, FormData } from '../../pages/PreRegistration.interface';
+import {
+  Document,
+  FormData,
+} from '../../pages/PreRegistration/PreRegistration.interface';
 
 export interface IHttpClient {
   post: <T>(url: string, body: T) => Promise<T>;
@@ -79,8 +82,6 @@ export class FormHandler {
       document,
     };
 
-    const url = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3333';
-
-    return httpClient.post(`${url}/profiles`, requestBody);
+    return httpClient.post('/profiles', requestBody);
   }
 }

@@ -1,10 +1,10 @@
 import React from 'react';
-import Login from './components/login/Login';
+import Routes from './routes';
 
-function App(): JSX.Element {
+function App() {
   return (
     <div className="App">
-      <Login />
+      <Routes />
     </div>
   );
 }

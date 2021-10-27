@@ -3,6 +3,7 @@ import { FormHandler } from './Form';
 function getHttpClientMock() {
   return {
     post: jest.fn(),
+    put: jest.fn(),
   };
 }
 

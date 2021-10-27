@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { LoginHandler } from '../../services/Login/Login';
 
-// import { Container } from './styles';
-
 const Login = (): JSX.Element => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import PreRegistration from './pages/PreRegistration/PreRegistration';
 import Home from './pages/Home';
-import Login from './components/login/Login';
+import Login from './pages/login/Login';
 
 export default function Routes() {
   return (

@@ -1,11 +1,10 @@
-export interface IHttpClient {
-  put: (url: string, body: any) => Promise<any>;
-}
+import { AxiosHttpClient } from '../Http/AxiosHttpClient';
+import { IHttpClient } from '../Http/IHttpClient';
 
 export class LoginHandler {
   constructor(
-    private readonly email: string[],
-    private readonly password: string[]
+    private readonly email: string,
+    private readonly password: string
   ) {}
 
   handleSubmit(httpClient: IHttpClient = new AxiosHttpClient()) {

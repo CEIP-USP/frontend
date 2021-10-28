@@ -18,6 +18,8 @@ module.exports = {
   variants: {
     extend: {
       placeholderColor: ['hover', 'active'],
+      backgroundOpacity: ['active'],
+      backgroundOrigin: ['hover', 'focus'],
     },
   },
   plugins: [],

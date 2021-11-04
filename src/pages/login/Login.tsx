@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
-import { LoginHandler } from '../../services/Login/Login';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
+import { useAuth } from '../../hooks/Auth';
 
 const Login = (): JSX.Element => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const { signIn, isAuthenticated, isLoading } = useAuth();
+  const history = useHistory();
+
   function handleSubmit() {
-    const loginHandler = new LoginHandler(email, password);
-    loginHandler.handleSubmit();
+    signIn(email, password);
   }
+
+  // TODO: Redirecionar para página anterior ao login (podemos guardar o link como query param)
+  useEffect(() => {
+    if (isAuthenticated) history.push('/restricted');
+  }, [isAuthenticated]);
 
   return (
     <div className="m">
@@ -53,6 +61,7 @@ const Login = (): JSX.Element => {
             className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
             type="button"
             onClick={handleSubmit}
+            disabled={isLoading}
           >
             Próximo
           </button>

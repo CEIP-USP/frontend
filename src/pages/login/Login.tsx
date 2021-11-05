@@ -6,7 +6,7 @@ const Login = (): JSX.Element => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { signIn, isAuthenticated, isLoading } = useAuth();
+  const { signIn, isAuthenticated, isLoading, isBadCredentials } = useAuth();
   const history = useHistory();
 
   function handleSubmit() {
@@ -57,6 +57,9 @@ const Login = (): JSX.Element => {
               onBlur={(e) => setPassword(e.target.value)}
             />
           </div>
+          {isBadCredentials && (
+            <p className="text-red-400 text-xs italic">Credenciais inválidas</p>
+          )}
           <button
             className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
             type="button"

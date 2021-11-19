@@ -6,12 +6,10 @@ import Home from './pages/Home';
 
 export default function Routes() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route component={Home} path="/" exact />
-        <Route component={Search} path="/search" />
-        <Route component={PreRegistration} path="/pre-registration" />
-      </Switch>
-    </BrowserRouter>
+    <Switch>
+      <Route component={Home} path="/" exact />
+      <Route component={Search} path="/search" />
+      <Route component={PreRegistration} path="/pre-registration" />
+    </Switch>
   );
 }

@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Navbar links={[{ name: 'Página Principal', url: '/' }]} />
-        <div className="pt-16">
+        <div className="pt-16 h-screen">
           <Routes />
         </div>
       </BrowserRouter>

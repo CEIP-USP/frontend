@@ -17,14 +17,12 @@ export class AuthService {
       .then(({ data }) => data);
   }
 
-  login(email: string, password: string) {
-    const credentialsOnBase64 = btoa(`${email}:${password}`);
+  login(username: string, password: string) {
     return this.axios
       .post<void, AxiosResponse<AccessTokenResponse>>(
         '/auth/login',
-        undefined,
+        { username, password },
         {
-          headers: { authorization: `Basic ${credentialsOnBase64}` },
           withCredentials: true,
         }
       )

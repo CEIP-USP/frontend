@@ -1,11 +1,17 @@
-import React from 'react';
-import { createContext, FC, useState } from 'react';
+import React, { createContext, FC, useState } from 'react';
+
+export interface IJWTProfile {
+  name: string;
+  email: string;
+  role?: string;
+}
 
 export interface IAuthContextState {
   isLoading: boolean;
   isError: boolean;
   isBadCredentials: boolean;
   accessToken?: string;
+  profile?: IJWTProfile;
 }
 
 type TAuthContext = [IAuthContextState, (nextState: IAuthContextState) => void];

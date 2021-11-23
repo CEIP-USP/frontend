@@ -1,7 +1,11 @@
 import { AxiosError } from 'axios';
-import jwt, { TokenExpiredError } from 'jsonwebtoken';
+import jwt, { JwtPayload, TokenExpiredError } from 'jsonwebtoken';
 import { useContext } from 'react';
-import { AuthContext, IAuthContextState } from '../contexts/auth.context';
+import {
+  AuthContext,
+  IAuthContextState,
+  IJWTProfile,
+} from '../contexts/auth.context';
 import {
   AccessTokenResponse,
   AuthService,
@@ -25,6 +29,7 @@ export const useAuth = (): IUseAuth => {
         isLoading: false,
         isError: false,
         isBadCredentials: false,
+        profile: parseTokenToProfile(response.accessToken),
       });
       return response.accessToken;
     }
@@ -122,8 +127,7 @@ const validateTokenContent = (token: string) => {
     const result = jwt.decode(token);
     return !!result;
   } catch (err) {
-    if ((err as Error)?.name === TokenExpiredError.name) return true;
-    else return false;
+    return (err as Error)?.name === TokenExpiredError.name;
   }
 };
 
@@ -185,3 +189,16 @@ function makeHandlers(
     },
   };
 }
+
+const parseTokenToProfile = (token: string) => {
+  const decoded: IJWTProfile & JwtPayload = jwt.decode(token) as IJWTProfile &
+    JwtPayload;
+  if (decoded) {
+    return {
+      name: decoded.name,
+      email: decoded.email,
+      role: decoded.role,
+    };
+  }
+  return undefined;
+};

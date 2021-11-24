@@ -1,12 +1,19 @@
 import React from 'react';
 import { AuthContextProvider } from './contexts/auth.context';
 import Routes from './routes';
+import Navbar from './components/Navbar/Navbar';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
       <AuthContextProvider>
-        <Routes />
+        <BrowserRouter>
+          <Navbar links={[{ name: 'Página Principal', url: '/' }]} />
+          <div className="pt-16">
+            <Routes />
+          </div>
+        </BrowserRouter>
       </AuthContextProvider>
     </div>
   );

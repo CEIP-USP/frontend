@@ -13,7 +13,6 @@ export const RequireAuthN: FC = ({ children }) => {
   useEffect(() => {
     if (!isAuthenticated && !isLoading && !isError) {
       const callback = history.location.pathname;
-      console.log(callback);
       history.push(`/login?callback=${callback}`);
     }
   }, [isAuthenticated, isLoading, isError, history]);

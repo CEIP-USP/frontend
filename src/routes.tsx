@@ -8,14 +8,12 @@ import { RestrictedPage } from './pages/restricted/Restricted';
 
 export default function Routes() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route component={Home} path="/" exact />
-        <Route component={PreRegistration} path="/pre-registration" />
-        <Route component={Login} path="/login" />
-        <Route component={RestrictedPage} path="/restricted" />
-        <Route component={Search} path="/search" />
-      </Switch>
-    </BrowserRouter>
+    <Switch>
+      <Route component={Home} path="/" exact />
+      <Route component={PreRegistration} path="/pre-registration" />
+      <Route component={Login} path="/login" />
+      <Route component={RestrictedPage} path="/restricted" />
+      <Route component={Search} path="/search" />
+    </Switch>
   );
 }

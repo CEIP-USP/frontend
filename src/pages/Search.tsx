@@ -34,23 +34,23 @@ const Search: React.FC = () => {
     setSearchTerm(searchBarRef.current?.value + '');
   };
 
-  const pageSize = 3;
+  const defaultPageSize = 3;
   const [pageParams, setPageParams] = useState({
     page: 1,
-    pageSize,
+    pageSize: defaultPageSize,
   });
 
   useEffect(() => {
     setRegistrationsResponses([]);
-    setPageParams({ page: 1, pageSize });
+    setPageParams({ page: 1, pageSize: defaultPageSize });
   }, [searchTerm]);
 
   const doQuery = AwesomeDebouncePromise(() => {
-    const { page, pageSize } = pageParams;
+    const { page, pageSize: _pageSize } = pageParams;
     return query({
       q: searchTerm + '',
-      skip: (page - 1) * pageSize,
-      take: pageSize,
+      skip: (page - 1) * _pageSize,
+      take: _pageSize,
     }).then((res) =>
       setRegistrationsResponses([...registrationsResponses, res])
     );

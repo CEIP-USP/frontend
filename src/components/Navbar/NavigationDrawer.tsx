@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
-import { navbarLink } from './Navbar.interface';
+import { NavbarLink } from './Navbar.interface';
 
 const NavigationDrawer = ({
   isOpen,
@@ -9,7 +9,7 @@ const NavigationDrawer = ({
 }: {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
-  links: navbarLink[];
+  links: NavbarLink[];
 }) => {
   const showModelClass = isOpen ? 'translate-x-0' : '-translate-x-full';
   return (
@@ -30,7 +30,7 @@ const NavigationDrawer = ({
             CEIP
           </Link>
           <div className="space-y-4 flex flex-col">
-            {links.map(({ name, url }: navbarLink, index: number) => (
+            {links.map(({ name, url }: NavbarLink, index: number) => (
               <Link
                 to={url}
                 key={index}

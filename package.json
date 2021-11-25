@@ -13,6 +13,7 @@
     "@types/react-dom": "^17.0.9",
     "awesome-debounce-promise": "^2.1.0",
     "axios": "^0.23.0",
+    "jsonwebtoken": "^8.5.1",
     "react": "^17.0.2",
     "react-datepicker": "^4.2.1",
     "react-dom": "^17.0.2",
@@ -53,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.5",
     "@types/react-datepicker": "^4.1.7",
     "@types/react-router-dom": "^5.3.2",
     "@types/styled-components": "^5.1.14",

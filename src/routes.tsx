@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import PreRegistration from './pages/PreRegistration/PreRegistration';
 import Search from './pages/Search';
 import Home from './pages/Home';

@@ -1,10 +1,7 @@
 import React from 'react';
-import {
-  FormData,
-  SetField,
-} from '../../pages/PreRegistration/PreRegistration.interface';
+import { FormData, SetField } from './Forms.interface';
 
-const StepTwo = ({
+const OptionalDataForm = ({
   formData,
   setField,
 }: {
@@ -13,7 +10,7 @@ const StepTwo = ({
 }): JSX.Element => {
   return (
     <div className="space-y-6">
-      <div className="space-y-4">
+      <div className="flex flex-col space-y-4">
         <div className="my-2">
           <p className="text-lg">Contato</p>
           <hr />
@@ -55,4 +52,4 @@ const StepTwo = ({
   );
 };
 
-export default StepTwo;
+export default OptionalDataForm;

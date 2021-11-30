@@ -1,8 +1,5 @@
 import { AxiosHttpClient } from './AxiosHttpClient';
-import {
-  Document,
-  FormData,
-} from '../../pages/PreRegistration/PreRegistration.interface';
+import { Document, FormData } from '../../components/Forms/Forms.interface';
 
 export interface IHttpClient {
   post: <T>(url: string, body: T) => Promise<T>;

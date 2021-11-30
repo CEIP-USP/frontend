@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FormHandler } from '../../services/PreRegistration/Form';
-import StepOne from '../../components/PreRegistration/StepOne';
-import StepTwo from '../../components/PreRegistration/StepTwo';
-import { Document } from './PreRegistration.interface';
+import MainDataForm from '../../components/Forms/MainDataForm';
+import OptionalDataForm from '../../components/Forms/OptionalDataForm';
+import { Document } from '../../components/Forms/Forms.interface';
 
 function PreRegistration(): JSX.Element {
   const [errors, setErrors] = useState([]);
@@ -82,7 +82,7 @@ function PreRegistration(): JSX.Element {
         <div className="flex flex-col space-y-4">
           {isStepOne ? (
             <>
-              <StepOne formData={formData} setField={setField} />
+              <MainDataForm formData={formData} setField={setField} />
               <div className="flex justify-end">
                 <button
                   className="w-1/2 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
@@ -94,7 +94,7 @@ function PreRegistration(): JSX.Element {
             </>
           ) : (
             <>
-              <StepTwo formData={formData} setField={setField} />
+              <OptionalDataForm formData={formData} setField={setField} />
               <div className="flex justify-between">
                 <button
                   className="bg-transparent text-sm text-blue-700 font-semibold hover:text-blue-500 rounded duration-300"

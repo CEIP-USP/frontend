@@ -1,16 +1,15 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
-import {
-  FormData,
-  SetField,
-} from '../../pages/PreRegistration/PreRegistration.interface';
+import { FormData, SetField } from './Forms.interface';
 
-const StepOne = ({
+const MainDataForm = ({
   formData,
   setField,
+  edit,
 }: {
   formData: FormData;
   setField: SetField;
+  edit?: boolean;
 }): JSX.Element => {
   return (
     <div className="space-y-6">
@@ -52,10 +51,27 @@ const StepOne = ({
           />
         </div>
 
+        {edit && (
+          <div className="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 rounded p-1">
+            <div className="-mt-3 absolute tracking-wider px-1 text-xs">
+              <label htmlFor="password" className="bg-white text-gray-600 px-1">
+                Senha Atual
+              </label>
+            </div>
+            <input
+              id="current_password"
+              type="password"
+              value={formData.currentPassword}
+              autoComplete="false"
+              className="py-2 px-1 text-gray-900 outline-none block h-full w-full"
+              onChange={(e) => setField(e.target.id, e.target.value)}
+            />
+          </div>
+        )}
         <div className="border focus-within:border-blue-500 focus-within:text-blue-500 transition-all duration-500 rounded p-1">
           <div className="-mt-3 absolute tracking-wider px-1 text-xs">
             <label htmlFor="password" className="bg-white text-gray-600 px-1">
-              Senha
+              {edit ? 'Nova senha' : 'Senha'}
             </label>
           </div>
           <input
@@ -74,7 +90,7 @@ const StepOne = ({
               htmlFor="password_confirmation"
               className="bg-white text-gray-600 px-1"
             >
-              Confirmar senha
+              Confirmar {edit ? 'nova senha' : 'senha'}
             </label>
           </div>
           <input
@@ -209,4 +225,4 @@ const StepOne = ({
   );
 };
 
-export default StepOne;
+export default MainDataForm;

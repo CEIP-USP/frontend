@@ -1,9 +1,6 @@
-import { AxiosHttpClient } from './AxiosHttpClient';
 import { Document, FormData } from '../../components/Forms/Forms.interface';
-
-export interface IHttpClient {
-  post: <T>(url: string, body: T) => Promise<T>;
-}
+import { IHttpClient } from '../Http/IHttpClient';
+import { AxiosHttpClient } from '../Http/AxiosHttpClient';
 
 type RequestData = Omit<FormData, 'passwordConfirmation' | 'hasSecondShot'> & {
   hasSecondShot: boolean;

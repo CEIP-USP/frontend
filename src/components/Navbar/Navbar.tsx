@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import NavigationDrawer from './NavigationDrawer';
-import { navbarLink } from './Navbar.interface';
+import { NavbarLink } from './Navbar.interface';
 
-const Navbar = ({ links }: { links: navbarLink[] }) => {
+const Navbar = ({ links }: { links: NavbarLink[] }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>

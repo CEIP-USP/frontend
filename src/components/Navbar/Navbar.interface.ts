@@ -1,4 +1,4 @@
-export interface navbarLink {
+export interface NavbarLink {
   name: string;
   url: string;
 }

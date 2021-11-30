@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <AuthContextProvider>
         <BrowserRouter>
-          <Navbar links={[{ name: 'Página Principal', url: '/' }]} />
+          <Navbar links={[{ name: 'Página Principal', url: '/restricted' }]} />
           <div className="pt-16 h-screen">
             <Routes />
           </div>

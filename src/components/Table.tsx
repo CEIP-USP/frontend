@@ -9,7 +9,7 @@ const Table = ({ values }: { values: string[] }) => {
             <th className="p-4">Serviços utilizados</th>
           </tr>
         </thead>
-        <tbody className="bg-gray-100 flex flex-col items-center justify-between overflow-x-scroll w-full">
+        <tbody className="bg-gray-100 flex flex-col items-center justify-between overflow-x-scroll md:overflow-x-auto w-full">
           {values.map((value) => {
             return (
               <tr className="w-full mb-4" key={value}>

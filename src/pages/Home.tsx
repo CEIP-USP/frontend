@@ -11,8 +11,8 @@ const Home = () => {
             'url(https://www.ip.usp.br/site/wp-content/uploads/2016/10/FOTO-NESSA-Biblioteca_site2-Copia.jpg)',
         }}
       >
-        <div className="container flex items-center mx-auto px-6 md:px-12 relative z-10 py-24 xl:py-40">
-          <div className="bg-white p-5 md:p-10 rounded-xl border flex flex-col items-center lg:w-3/5 xl:w-2/5 relative space-y-6">
+        <div className="container flex items-center mx-auto px-6 md:px-12 py-24 xl:py-40">
+          <div className="bg-white p-5 md:p-10 rounded-xl border flex flex-col items-center lg:w-3/5 xl:w-2/5 space-y-6">
             <h1 className="text-4xl text-red-400 mt-4 font-bold">CEIP-USP</h1>
 
             <div className="font-source-sans-pro max-w-max">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import PreRegistration from './pages/PreRegistration/PreRegistration';
+import PreRegistration from './pages/PreRegistration';
 import Search from './pages/Search';
 import Home from './pages/Home';
 import Profile from './pages/Profile';

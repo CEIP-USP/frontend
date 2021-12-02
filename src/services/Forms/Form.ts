@@ -60,9 +60,7 @@ export class FormHandler {
   ): Promise<RequestData> {
     const { isValid, errors } = this.validateForm();
 
-    if (!isValid) {
-      return new Promise((_, reject) => reject(errors));
-    }
+    if (!isValid) return Promise.reject(errors);
 
     const document = Object.assign({}, this.document);
 
@@ -91,7 +89,7 @@ export class FormHandler {
       const error = e as Record<string, unknown>;
       const response = error.response as ResponseData<RequestData>;
 
-      switch (response.status) {
+      switch (response?.status) {
         case 422:
           return Promise.reject([
             'A data de vacinação não pode ser uma data futura',

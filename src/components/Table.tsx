@@ -20,7 +20,7 @@ const Table = ({ values }: { values: string[] }) => {
           {values.length == 0 && (
             <tr className="w-full mb-4">
               <td className="p-4 text-gray-500 text-center font-semibold">
-                Você não utiliza nenhum serviço do CEIP-USP
+                Você ainda não tem nenhum serviço do CEIP-USP cadastrado
               </td>
             </tr>
           )}

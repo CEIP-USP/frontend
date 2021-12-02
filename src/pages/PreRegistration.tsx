@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
-import { FormHandler } from '../../services/Forms/Form';
-import MainDataForm from '../../components/Forms/MainDataForm';
-import OptionalDataForm from '../../components/Forms/OptionalDataForm';
-import { Document } from '../../components/Forms/Forms.interface';
+import { FormHandler } from '../services/Forms/Form';
+import MainDataForm from '../components/Forms/MainDataForm';
+import OptionalDataForm from '../components/Forms/OptionalDataForm';
+import { Document } from '../components/Forms/Forms.interface';
 import { useHistory } from 'react-router';
 
 function PreRegistration(): JSX.Element {

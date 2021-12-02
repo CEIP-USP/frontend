@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router';
 import { useAuth } from '../../hooks/Auth';
 import { BiError } from 'react-icons/bi';
 
-const Login = (props: any): JSX.Element => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 

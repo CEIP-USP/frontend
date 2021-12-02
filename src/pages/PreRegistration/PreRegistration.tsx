@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
-import { FormHandler } from '../../services/PreRegistration/Form';
+import { FormHandler } from '../../services/Forms/Form';
 import MainDataForm from '../../components/Forms/MainDataForm';
 import OptionalDataForm from '../../components/Forms/OptionalDataForm';
 import { Document } from '../../components/Forms/Forms.interface';
+import { useHistory } from 'react-router';
 
 function PreRegistration(): JSX.Element {
+  const history = useHistory();
   const [errors, setErrors] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
@@ -56,7 +58,23 @@ function PreRegistration(): JSX.Element {
       document
     );
 
-    formHandler.handleSubmit().catch((errors) => setErrors(errors));
+    formHandler
+      .handleSubmit()
+      .then(() => {
+        alert('Conta criada com sucesso!');
+        history.push('/login');
+      })
+      .catch((errors) => setErrors(errors));
+  }
+
+  function handleSubmitWithoutOptionalData() {
+    setFormData({
+      ...formData,
+      phone: '',
+      address: '',
+    });
+
+    handleSubmit();
   }
 
   return (
@@ -105,7 +123,7 @@ function PreRegistration(): JSX.Element {
                 <div className="w-1/4 flex items-center justify-end space-x-2">
                   <button
                     className="text-sm bg-transparent text-blue-700 font-semibold hover:text-blue-500 rounded duration-300"
-                    onClick={() => alert('Em construção!')}
+                    onClick={handleSubmitWithoutOptionalData}
                   >
                     Preencher depois
                   </button>

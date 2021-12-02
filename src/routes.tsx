@@ -6,7 +6,6 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
 import Login from './pages/login/Login';
-import { RestrictedPage } from './pages/restricted/Restricted';
 
 export default function Routes() {
   return (
@@ -16,7 +15,6 @@ export default function Routes() {
       <Route component={Profile} path="/profile" exact />
       <Route component={EditProfile} path="/profile/edit" />
       <Route component={Login} path="/login" />
-      <Route component={RestrictedPage} path="/restricted" />
       <Route component={Search} path="/search" />
     </Switch>
   );

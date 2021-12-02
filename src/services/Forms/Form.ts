@@ -1,9 +1,14 @@
 import { Document, FormData } from '../../components/Forms/Forms.interface';
-import { IHttpClient } from '../Http/IHttpClient';
+import { IHttpClient } from '../Http/HttpClient.interface';
 import { AxiosHttpClient } from '../Http/AxiosHttpClient';
 
 type RequestData = Omit<FormData, 'passwordConfirmation' | 'hasSecondShot'> & {
   hasSecondShot: boolean;
+};
+
+type ResponseData<T> = {
+  data: T;
+  status: number;
 };
 
 export class FormHandler {
@@ -50,7 +55,7 @@ export class FormHandler {
     };
   }
 
-  handleSubmit(
+  async handleSubmit(
     httpClient: IHttpClient = new AxiosHttpClient()
   ): Promise<RequestData> {
     const { isValid, errors } = this.validateForm();
@@ -76,6 +81,28 @@ export class FormHandler {
       document,
     };
 
-    return httpClient.post('/profiles', requestBody);
+    try {
+      const response: ResponseData<RequestData> = await httpClient.post(
+        '/profiles',
+        requestBody
+      );
+      return Promise.resolve(response.data);
+    } catch (e) {
+      const error = e as Record<string, unknown>;
+      const response = error.response as ResponseData<RequestData>;
+
+      switch (response.status) {
+        case 422:
+          return Promise.reject([
+            'A data de vacinação não pode ser uma data futura',
+          ]);
+        case 500:
+          return Promise.reject([
+            'O servidor não está disponível no momento. Tente mais tarde.',
+          ]);
+        default:
+          return Promise.reject(['Erro inesperado aconteceu :(']);
+      }
+    }
   }
 }

@@ -176,7 +176,7 @@ const MainDataForm = ({
       </div>
 
       <div className="space-y-4">
-        <p>Já tomei a segunda dose da vacina da Covid-19</p>
+        <p>Está vacinado contra a Covid-19?</p>
         <div className="mt-1 flex space-x-4">
           <label className="flex items-center space-x-1">
             <input
@@ -208,7 +208,7 @@ const MainDataForm = ({
                 htmlFor="dayOfSecondShot"
                 className="bg-white text-gray-600 px-1"
               >
-                Quando?
+                Data da úlima dose
               </label>
             </div>
             <DatePicker

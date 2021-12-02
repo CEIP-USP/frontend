@@ -63,6 +63,7 @@ export const useAuth = (): IUseAuth => {
         if (codeIsClientError(err?.response?.status)) {
           setState({
             ...state,
+            isError: false,
             isLoading: false,
             isBadCredentials: true,
           });

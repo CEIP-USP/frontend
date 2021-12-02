@@ -6,6 +6,7 @@ export type Document = {
 export type FormData = {
   name: string;
   email: string;
+  currentPassword?: string;
   password: string;
   passwordConfirmation: string;
   phone: string;

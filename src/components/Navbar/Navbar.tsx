@@ -6,7 +6,7 @@ const Navbar = ({ links }: { links: NavbarLink[] }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <nav className="flex fixed w-full h-16 items-center px-6 bg-white border-b border-gray-200">
+      <nav className="flex fixed w-full h-16 items-center px-6 bg-white border-b border-gray-200 z-10">
         <button
           className="font-bold text-2xl text-gray-700"
           onClick={() => setIsOpen(true)}

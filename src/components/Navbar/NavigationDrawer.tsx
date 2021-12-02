@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../hooks/Auth';
 import { NavbarLink } from './Navbar.interface';
 
 const NavigationDrawer = ({
@@ -11,6 +12,7 @@ const NavigationDrawer = ({
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   links: NavbarLink[];
 }) => {
+  const auth = useAuth();
   const showModelClass = isOpen ? 'translate-x-0' : '-translate-x-full';
   return (
     <>
@@ -35,18 +37,20 @@ const NavigationDrawer = ({
                 to={url}
                 key={index}
                 className="text-center text-xl md:text-2xl font-medium"
+                onClick={() => setIsOpen(false)}
               >
                 {name.charAt(0).toUpperCase() + name.slice(1)}
               </Link>
             ))}
           </div>
-          <Link
-            to="#"
-            onClick={() => alert('Em construção')}
-            className="text-xl md:text-2xl text-blue-400"
-          >
-            Sair
-          </Link>
+          {auth.isAuthenticated && (
+            <button
+              className="text-xl md:text-2xl text-left text-blue-400"
+              onClick={() => auth.signOut()}
+            >
+              Sair
+            </button>
+          )}
         </div>
       </aside>
     </>

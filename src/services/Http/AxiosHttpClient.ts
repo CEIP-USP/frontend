@@ -1,12 +1,15 @@
-import { IHttpClient } from './IHttpClient';
+import { IHttpClient } from './HttpClient.interface';
 import { startAxios } from '../../hooks/Axios';
 
 export class AxiosHttpClient implements IHttpClient {
-  public post<T>(url: string, body: T): Promise<T> {
+  public post<Request, Response>(
+    url: string,
+    body: Request
+  ): Promise<Response> {
     const axios = startAxios();
     return axios.post(url, body);
   }
-  public put<T>(url: string, body: T): Promise<T> {
+  public put<Request, Response>(url: string, body: Request): Promise<Response> {
     const axios = startAxios();
     return axios.put(url, body);
   }

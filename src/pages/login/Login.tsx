@@ -1,28 +1,64 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { useAuth } from '../../hooks/Auth';
+import { BiError } from 'react-icons/bi';
 
-const Login = (): JSX.Element => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { signIn, isAuthenticated, isLoading, isBadCredentials } = useAuth();
+  const { signIn, isAuthenticated, isLoading, isError, isBadCredentials } =
+    useAuth();
+  const location = useLocation();
   const history = useHistory();
 
   function handleSubmit() {
     signIn(email, password);
   }
 
-  // TODO: Redirecionar para página anterior ao login (podemos guardar o link como query param)
   useEffect(() => {
-    if (isAuthenticated) history.push('/restricted');
+    const queryParams = Object.fromEntries(
+      new URLSearchParams(location.search).entries()
+    );
+    if (isAuthenticated)
+      queryParams.callback
+        ? history.push(queryParams.callback)
+        : history.push('/profile');
   }, [isAuthenticated]);
 
   return (
-    <div className="m">
+    <>
       <div>
-        <h1 className="my-8 text-xl font-bold text-center">Entrar</h1>
+        <h1 className="my-8 text-xl md:text-3xl font-bold text-center">
+          Login
+        </h1>
       </div>
+
+      <div className="mx-3 md:mx-auto md:w-1/2 space-y-6">
+        {isError && (
+          <div className="flex items-center space-x-4 bg-red-500 p-4 rounded-md">
+            <BiError size={50} color="white" />
+            <div className="space-y-1 text-md">
+              <h6 className="font-semibold text-white">Erro Interno</h6>
+              <p className="font-regular text-red-100 leading-tight">
+                O servidor não está disponível no momento. Tente mais tarde.
+              </p>
+            </div>
+          </div>
+        )}
+        {isBadCredentials && (
+          <div className="flex items-center space-x-4 bg-red-500 p-4 rounded-md">
+            <BiError size={50} color="white" />
+            <div className="space-y-1 text-md">
+              <h6 className="font-semibold text-white">Erro</h6>
+              <p className="font-regular text-red-100 leading-tight">
+                Credenciais inválidas!
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
+
       <div>
         <form className="flex flex-col space-y-4 my-4 mx-3 lg:w-1/2 lg:mx-auto">
           <div className="-mt-3 absolute tracking-wider px-1 text-xs"></div>
@@ -57,20 +93,18 @@ const Login = (): JSX.Element => {
               onBlur={(e) => setPassword(e.target.value)}
             />
           </div>
-          {isBadCredentials && (
-            <p className="text-red-400 text-xs italic">Credenciais inválidas</p>
-          )}
+
           <button
             className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
             type="button"
             onClick={handleSubmit}
             disabled={isLoading}
           >
-            Próximo
+            Entrar
           </button>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 

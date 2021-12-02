@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     if (isAuthenticated) {
       setLinks([{ name: 'Meu perfil', url: '/profile' }]);
-    }
+    } else setLinks([]);
   }, [isAuthenticated]);
 
   return (

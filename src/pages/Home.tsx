@@ -15,23 +15,10 @@ const Home = () => {
           <div className="bg-white p-5 md:p-10 rounded-xl border flex flex-col items-center lg:w-3/5 xl:w-2/5 relative space-y-6">
             <h1 className="text-4xl text-red-400 mt-4 font-bold">CEIP-USP</h1>
 
-            <div className="font-source-sans-pro max-w-max space-y-6">
+            <div className="font-source-sans-pro max-w-max">
               <p className="text-md md:text-lg text-center">
                 Se você já tem agendamento para algum serviço no CEIP, crie aqui
                 seu cadastro para acesso ao prédio.
-              </p>
-              <p className="text-md md:text-lg text-center">
-                <span className="font-bold">IMPORTANTE:</span> Este cadastro não
-                garante atendimento. Para informações sobre os serviços
-                prestados no CEIP e forma de inscrição &nbsp;
-                <a
-                  className="text-blue-900 font-bold"
-                  href="https://www.ip.usp.br/site/servicos-a-comunidade/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  acesse aqui
-                </a>
               </p>
             </div>
 
@@ -48,6 +35,22 @@ const Home = () => {
               >
                 Realize o seu cadastro
               </Link>
+            </div>
+
+            <div className="font-source-sans-pro max-w-max space-y-6">
+              <p className="text-md md:text-lg text-center">
+                <span className="font-bold">IMPORTANTE:</span> Este cadastro não
+                garante atendimento. Para informações sobre os serviços
+                prestados no CEIP e forma de inscrição &nbsp;
+                <a
+                  className="text-blue-900 font-bold"
+                  href="https://www.ip.usp.br/site/servicos-a-comunidade/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  acesse aqui
+                </a>
+              </p>
             </div>
           </div>
         </div>

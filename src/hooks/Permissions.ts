@@ -19,10 +19,8 @@ interface IPermissions {
 const baseLinks = [{ name: 'Meu perfil', url: '/profile' }];
 
 const permissions: IPermissions = {
-  User: [...baseLinks].concat({
-    name: 'Pesquisar perfis',
-    url: '/search',
-  }),
+  //TODO: Remover 'User' após tradução do back
+  User: [...baseLinks],
   Usuário: [...baseLinks],
   'Controlador de Acesso': [...baseLinks].concat({
     name: 'Pesquisar perfis',

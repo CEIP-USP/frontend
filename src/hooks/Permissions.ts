@@ -1,6 +1,3 @@
-import { useContext, useEffect } from 'react';
-import { useHistory } from 'react-router';
-import { AuthContext } from '../contexts/auth.context';
 import { useAuth } from './Auth';
 import { useProfile } from './Profile';
 
@@ -22,7 +19,10 @@ interface IPermissions {
 const baseLinks = [{ name: 'Meu perfil', url: '/profile' }];
 
 const permissions: IPermissions = {
-  User: [...baseLinks],
+  User: [...baseLinks].concat({
+    name: 'Pesquisar perfis',
+    url: '/search',
+  }),
   Usuário: [...baseLinks],
   'Controlador de Acesso': [...baseLinks].concat({
     name: 'Pesquisar perfis',
@@ -46,7 +46,7 @@ const permissions: IPermissions = {
   }),
 };
 
-export const usePermissions = () => {
+export const usePermissions = (roles: string[] = []) => {
   const { isAuthenticated } = useAuth();
   const profile = useProfile();
 
@@ -54,5 +54,14 @@ export const usePermissions = () => {
     return isAuthenticated ? permissions[role as keyof IPermissions] : [];
   }
 
-  return { links: processLinks(profile?.role) };
+  function checkPageAccessPermission(roles: string[]) {
+    if (!isAuthenticated) return false;
+
+    return roles.includes(profile?.role as string);
+  }
+
+  return {
+    links: processLinks(profile?.role),
+    hasAccess: checkPageAccessPermission(roles),
+  };
 };

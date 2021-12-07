@@ -6,6 +6,8 @@ import { RegistrationsQueryResponse } from '../services/registrations-query/quer
 import SearchBar from '../components/SearchBar';
 import { useRegistrationsQuery } from '../services/registrations-query/query-hook';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
+import { RequireAuthN } from '../components/hoc/RequireAuthN';
+import AccessControl from '../components/hoc/AccessControl';
 
 const Search: React.FC = () => {
   const query = useRegistrationsQuery();
@@ -65,25 +67,29 @@ const Search: React.FC = () => {
   };
 
   return (
-    <main className="bg-background-default min-h-screen">
-      <div className="p-4 container mx-auto max-w-screen-md">
-        <form className="mb-4" onSubmit={onSubmitSearchTerm}>
-          <SearchBar
-            onChange={(event) => setSearchTerm(event.target.value)}
-            value={searchTerm}
-          />
-        </form>
-        <CardList registrations={registrations} />
-        <div className="flex items-center justify-center mt-4">
-          <button
-            className="px-4 py-2 bg-blue-300 rounded-md text-white"
-            onClick={fetchMore}
-          >
-            Carregar mais
-          </button>
-        </div>
-      </div>
-    </main>
+    <RequireAuthN>
+      <AccessControl roles={['User']}>
+        <main className="bg-background-default min-h-screen">
+          <div className="p-4 container mx-auto max-w-screen-md">
+            <form className="mb-4" onSubmit={onSubmitSearchTerm}>
+              <SearchBar
+                onChange={(event) => setSearchTerm(event.target.value)}
+                value={searchTerm}
+              />
+            </form>
+            <CardList registrations={registrations} />
+            <div className="flex items-center justify-center mt-4">
+              <button
+                className="px-4 py-2 bg-blue-300 rounded-md text-white"
+                onClick={fetchMore}
+              >
+                Carregar mais
+              </button>
+            </div>
+          </div>
+        </main>
+      </AccessControl>
+    </RequireAuthN>
   );
 };
 

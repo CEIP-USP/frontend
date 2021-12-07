@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
 import Login from './pages/Login';
+import ManageProfile from './pages/ManageProfile';
 
 export default function Routes() {
   return (
@@ -16,6 +17,7 @@ export default function Routes() {
       <Route component={EditProfile} path="/profile/edit" />
       <Route component={Login} path="/login" />
       <Route component={Search} path="/search" />
+      <Route component={ManageProfile} path="/profile/:id" />
     </Switch>
   );
 }

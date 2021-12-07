@@ -48,7 +48,7 @@ export const usePermissions = (roles: string[] = []) => {
   const { isAuthenticated } = useAuth();
   const profile = useProfile();
 
-  function processLinks(role: string | undefined): TypeLink[] {
+  function getAllowedLinks(role: string | undefined): TypeLink[] {
     return isAuthenticated ? permissions[role as keyof IPermissions] : [];
   }
 
@@ -59,7 +59,7 @@ export const usePermissions = (roles: string[] = []) => {
   }
 
   return {
-    links: processLinks(profile?.role),
+    links: getAllowedLinks(profile?.role),
     hasAccess: checkPageAccessPermission(roles),
   };
 };

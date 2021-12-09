@@ -52,14 +52,22 @@ export const usePermissions = (roles: string[] = []) => {
     return isAuthenticated ? permissions[role as keyof IPermissions] : [];
   }
 
-  function checkPageAccessPermission(roles: string[]) {
+  function checkPermittedRoles(roles: string[]) {
     if (!isAuthenticated) return false;
 
     return roles.includes(profile?.role as string);
   }
 
+  function checkBlockedRoles(roles: string[]) {
+    if (!isAuthenticated) return true;
+
+    return !roles.includes(profile?.role as string);
+  }
+
   return {
     links: getAllowedLinks(profile?.role),
-    hasAccess: checkPageAccessPermission(roles),
+    hasAccess: checkPermittedRoles(roles),
+    checkPermittedRoles,
+    checkBlockedRoles,
   };
 };

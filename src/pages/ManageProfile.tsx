@@ -16,11 +16,7 @@ const ManageProfile = () => {
   const { id }: { id: string } = useParams();
   const [checked, setChecked] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
-  const [profile, setProfile] = useState<IJWTProfile>({
-    name: 'Foo',
-    email: 'foo@bar.com',
-    role: 'User',
-  });
+  const [profile, setProfile] = useState<IJWTProfile>();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -56,11 +52,17 @@ const ManageProfile = () => {
   ];
 
   useEffect(() => {
-    setConfirmed(profile.role ? true : false);
-  }, []);
+    setConfirmed(profile?.role ? true : false);
+  }, [profile]);
 
   useEffect(() => {
-    //TODO: Fetch do profile
+    // TODO: Fetch do profile
+    // TODO: Remover hardcoded
+    setProfile({
+      name: 'Foo',
+      email: 'foo@bar.com',
+      role: 'User',
+    });
   }, [id]);
 
   const setField = (field: string, value: string | Date | Document) => {
@@ -71,39 +73,11 @@ const ManageProfile = () => {
   };
 
   function handleSubmit() {
-    const {
-      name,
-      email,
-      password,
-      passwordConfirmation,
-      phone,
-      address,
-      hasSecondShot,
-      dayOfSecondShot,
-      document,
-    } = formData;
-
-    const services = selectedServices;
-
     // TODO: Confirmar pré-cadastro
     alert('Em construção...');
   }
 
   function handleUpdate() {
-    const {
-      name,
-      email,
-      password,
-      passwordConfirmation,
-      phone,
-      address,
-      hasSecondShot,
-      dayOfSecondShot,
-      document,
-    } = formData;
-
-    const services = selectedServices;
-
     // TODO: Atualizar o perfil
     alert('Em construção...');
   }
@@ -147,7 +121,7 @@ const ManageProfile = () => {
           <div className="-mt-20 md:-mt-24 w-36 h-36 md:w-48 md:h-48 rounded-full bg-gray-300 border-2 border-gray-500 flex items-center justify-center">
             <FaRegUser size={60} />
           </div>
-          <p className="text-xl md:text-3xl font-semibold">{profile.name}</p>
+          <p className="text-xl md:text-3xl font-semibold">{profile?.name}</p>
           {confirmed ? (
             <p className="text-blue-500 font-semibold md:text-xl">Confirmado</p>
           ) : (

@@ -11,6 +11,7 @@ import ChipsDropdown from '../components/ChipsDropdown';
 const ManageProfile = () => {
   const { id }: { id: string } = useParams();
   const [checked, setChecked] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
   const [profile, setProfile] = useState<IJWTProfile>({
     name: 'Erick',
     email: 'gostosa@gostosa.com',
@@ -51,6 +52,10 @@ const ManageProfile = () => {
   ];
 
   useEffect(() => {
+    setConfirmed(profile.role ? true : false);
+  }, []);
+
+  useEffect(() => {
     //TODO: Fetch do profile
   }, [id]);
 
@@ -61,9 +66,37 @@ const ManageProfile = () => {
     });
   };
 
+  function handleSubmit() {
+    const {
+      name,
+      email,
+      password,
+      passwordConfirmation,
+      phone,
+      address,
+      hasSecondShot,
+      dayOfSecondShot,
+      document,
+    } = formData;
+  }
+
+  function handleUpdate() {
+    const {
+      name,
+      email,
+      password,
+      passwordConfirmation,
+      phone,
+      address,
+      hasSecondShot,
+      dayOfSecondShot,
+      document,
+    } = formData;
+  }
+
   return (
     <>
-      {profile.role ? (
+      {confirmed ? (
         <div className="bg-blue-700 h-1/4" />
       ) : (
         <div className="bg-red-700 h-1/4" />
@@ -74,7 +107,7 @@ const ManageProfile = () => {
           <FaRegUser size={60} />
         </div>
         <p className="text-xl md:text-3xl font-semibold">{profile.name}</p>
-        {profile.role ? (
+        {confirmed ? (
           <p className="text-blue-500 font-semibold md:text-xl">Confirmado</p>
         ) : (
           <p className="text-red-500 font-semibold md:text-xl">Pendente</p>
@@ -85,13 +118,23 @@ const ManageProfile = () => {
             <Switch checked={checked} setChecked={setChecked} />
           </div>
 
-          <MainDataForm formData={formData} setField={setField} />
-          <OptionalDataForm formData={formData} setField={setField} />
+          <MainDataForm
+            formData={formData}
+            setField={setField}
+            disabled={!checked}
+          />
+          <OptionalDataForm
+            formData={formData}
+            setField={setField}
+            disabled={!checked}
+          />
 
           <ChipsDropdown
+            label="Serviços Utilizados"
             options={services}
             selected={selectedServices}
             setSelected={setSelectedServices}
+            disabled={!checked}
           />
 
           <div className="py-8 flex flex-col w-full space-y-2">
@@ -99,13 +142,13 @@ const ManageProfile = () => {
               className="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded duration-300"
               onClick={() => alert('Em construção...')}
             >
-              Confirmar pré-cadastro
+              {confirmed ? 'Alterar dados' : 'Confirmar pré-cadastro'}
             </button>
             <button
               className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded duration-300"
               onClick={() => alert('Em construção...')}
             >
-              Remover pré-cadastro
+              {confirmed ? 'Remover usuário' : 'Remover pré-cadastro'}
             </button>
           </div>
         </div>

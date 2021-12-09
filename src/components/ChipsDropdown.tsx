@@ -10,12 +10,20 @@ import { IoMdClose } from 'react-icons/io';
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md';
 
 type Props = {
+  label: string;
   options: string[];
   selected: string[];
   setSelected: Dispatch<SetStateAction<string[]>>;
+  disabled?: boolean;
 };
 
-const ChipsDropdown: FC<Props> = ({ options, selected, setSelected }) => {
+const ChipsDropdown: FC<Props> = ({
+  label,
+  options,
+  selected,
+  setSelected,
+  disabled,
+}) => {
   const [open, setIsOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
 
@@ -35,9 +43,18 @@ const ChipsDropdown: FC<Props> = ({ options, selected, setSelected }) => {
     setSelected(selected.filter((item) => item !== option));
   }
 
+  const disabledStyle = disabled ? 'bg-gray-50' : 'bg-white';
+
   return (
-    <div ref={selectRef} className="relative">
-      <div className="p-2 min-h-12 relative border border-gray-300 dark:border-gray-600 rounded">
+    <div ref={selectRef} className="relative py-4">
+      <div className="-mt-2 absolute tracking-wider px-1 text-xs z-10">
+        <label htmlFor="password" className="bg-white text-gray-600 px-1">
+          {label}
+        </label>
+      </div>
+      <div
+        className={`${disabledStyle} p-2 min-h-12 relative border border-gray-300 dark:border-gray-600 rounded`}
+      >
         <div className="flex flex-wrap items-center">
           {selected.map((item) => (
             <div
@@ -46,7 +63,9 @@ const ChipsDropdown: FC<Props> = ({ options, selected, setSelected }) => {
             >
               <span className="text-sm overflow-clip">{item}</span>
               <button
-                onClick={() => removeSelectedOption(item)}
+                onClick={() => {
+                  !disabled && removeSelectedOption(item);
+                }}
                 className="pl-1 flex items-center border-0 outline-none focus:ring-0"
               >
                 <IoMdClose size={16} />
@@ -55,8 +74,10 @@ const ChipsDropdown: FC<Props> = ({ options, selected, setSelected }) => {
           ))}
         </div>
         <button
-          onClick={() => setIsOpen(!open)}
           className="w-10 h-full absolute top-0 right-0 flex items-center justify-center outline-none focus:outline-none"
+          onClick={() => {
+            !disabled && setIsOpen(!open);
+          }}
         >
           {open ? (
             <MdKeyboardArrowUp size={16} />

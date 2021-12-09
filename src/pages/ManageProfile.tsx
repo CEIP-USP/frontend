@@ -103,6 +103,14 @@ const ManageProfile = () => {
       )}
 
       <div className="min-h-screen flex flex-col items-center">
+        {confirmed && (
+          <button
+            className="mt-2 absolute left-5 md:left-1/4 w-20 bg-yellow-500 hover:bg-yellow-700 text-white font-semibold py-1 px-2 rounded duration-300"
+            onClick={() => alert('Em construção...')}
+          >
+            Editar Cargos
+          </button>
+        )}
         <div className="-mt-20 md:-mt-24 w-36 h-36 md:w-48 md:h-48 rounded-full bg-gray-300 border-2 border-gray-500 flex items-center justify-center">
           <FaRegUser size={60} />
         </div>

@@ -2,18 +2,66 @@ import React, { useEffect, useState } from 'react';
 import { FaRegUser } from 'react-icons/fa';
 import { useParams } from 'react-router';
 import { IJWTProfile } from '../contexts/auth.context';
+import Switch from '../components/Switch';
+import MainDataForm from '../components/Forms/MainDataForm';
+import OptionalDataForm from '../components/Forms/OptionalDataForm';
+import { Document } from '../components/Forms/Forms.interface';
+import ChipsDropdown from '../components/ChipsDropdown';
 
 const ManageProfile = () => {
   const { id }: { id: string } = useParams();
+  const [checked, setChecked] = useState(false);
   const [profile, setProfile] = useState<IJWTProfile>({
     name: 'Erick',
     email: 'gostosa@gostosa.com',
     role: 'User',
   });
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    currentPassword: '',
+    password: '',
+    passwordConfirmation: '',
+    phone: '',
+    address: '',
+    hasSecondShot: '',
+    dayOfSecondShot: new Date(),
+    document: {
+      type: 'CPF',
+      value: '',
+    },
+  });
+  const [selectedServices, setSelectedServices] = useState<string[]>([
+    'APOIAR',
+  ]);
+  const services: string[] = [
+    'APOIAR',
+    'Ateliê Aberto',
+    'Centro de Psicologia Aplicada no Trabalho (CPAT)',
+    'Clínica Psicológica Durval Marcondes',
+    'Grupo Reflexivo de Apoio e Permanência da USP',
+    'Grupo vivencial com danças circulares',
+    'Núcleo de Educação Terapêutica (NET)',
+    'Núcleo de Orientação Profissional para alunos USP (NOP)',
+    'Oficina de Jogos do LEDA: Programa de Intervenção para alunos da Escola Fundamental',
+    'Plantão Institucional',
+    'Plantão Psicológico LEFE',
+    'Serviço de Orientação à Queixa Escolar',
+    'Serviço de Orientação Profissional (SOP)',
+    'Serviço de Psicologia Escolar (SePE)',
+    'Serviço Rede de Atenção à Pessoa Indígena',
+  ];
 
   useEffect(() => {
     //TODO: Fetch do profile
   }, [id]);
+
+  const setField = (field: string, value: string | Date | Document) => {
+    setFormData({
+      ...formData,
+      [field]: value,
+    });
+  };
 
   return (
     <>
@@ -23,7 +71,7 @@ const ManageProfile = () => {
         <div className="bg-red-700 h-1/4" />
       )}
 
-      <div className="h-screen flex flex-col items-center">
+      <div className="min-h-screen flex flex-col items-center">
         <div className="-mt-20 md:-mt-24 w-36 h-36 md:w-48 md:h-48 rounded-full bg-gray-300 border-2 border-gray-500 flex items-center justify-center">
           <FaRegUser size={60} />
         </div>
@@ -33,6 +81,21 @@ const ManageProfile = () => {
         ) : (
           <p className="text-red-500 font-semibold md:text-xl">Pendente</p>
         )}
+
+        <div className="mt-10 lg:w-1/2 lg:mx-auto space-y-2">
+          <div className="flex justify-end">
+            <Switch checked={checked} setChecked={setChecked} />
+          </div>
+
+          <MainDataForm formData={formData} setField={setField} />
+          <OptionalDataForm formData={formData} setField={setField} />
+
+          <ChipsDropdown
+            options={services}
+            selected={selectedServices}
+            setSelected={setSelectedServices}
+          />
+        </div>
       </div>
     </>
   );

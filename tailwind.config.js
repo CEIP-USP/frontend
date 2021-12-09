@@ -12,6 +12,9 @@ module.exports = {
         'button-unconfirmed': '#B75260',
       },
     },
+    minHeight: {
+      12: '3rem',
+    },
     fontFamily: {
       sans: ['Montserrat', 'sans-serif'],
     },

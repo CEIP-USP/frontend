@@ -59,7 +59,7 @@ const ChipsDropdown: FC<Props> = ({
           {selected.map((item) => (
             <div
               key={item}
-              className="mt-1 ml-1 p-1 max-w-full flex items-center bg-blue-500 text-white rounded select-none cursor-text"
+              className="mt-1 ml-1 p-1 max-w-min flex items-center bg-blue-500 text-white rounded select-none cursor-text"
             >
               <span className="text-sm overflow-clip">{item}</span>
               <button
@@ -73,16 +73,21 @@ const ChipsDropdown: FC<Props> = ({
             </div>
           ))}
         </div>
-        <button
-          className="w-10 h-full absolute top-0 right-0 flex items-center justify-center outline-none focus:outline-none"
-          onClick={() => {
-            !disabled && setIsOpen(!open);
-          }}
-        >
+        <button className="w-10 h-full absolute top-0 right-0 flex items-center justify-center outline-none focus:outline-none">
           {open ? (
-            <MdKeyboardArrowUp size={16} />
+            <MdKeyboardArrowUp
+              size={16}
+              onClick={() => {
+                !disabled && setIsOpen(!open);
+              }}
+            />
           ) : (
-            <MdKeyboardArrowDown size={16} />
+            <MdKeyboardArrowDown
+              size={16}
+              onClick={() => {
+                !disabled && setIsOpen(!open);
+              }}
+            />
           )}
         </button>
       </div>

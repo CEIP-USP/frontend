@@ -31,9 +31,7 @@ const ManageProfile = () => {
       value: '',
     },
   });
-  const [selectedServices, setSelectedServices] = useState<string[]>([
-    'APOIAR',
-  ]);
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const services: string[] = [
     'APOIAR',
     'Ateliê Aberto',
@@ -82,7 +80,7 @@ const ManageProfile = () => {
           <p className="text-red-500 font-semibold md:text-xl">Pendente</p>
         )}
 
-        <div className="mt-10 lg:w-1/2 lg:mx-auto space-y-2">
+        <div className="my-10 lg:w-1/2 lg:mx-auto space-y-2">
           <div className="flex justify-end">
             <Switch checked={checked} setChecked={setChecked} />
           </div>
@@ -95,6 +93,21 @@ const ManageProfile = () => {
             selected={selectedServices}
             setSelected={setSelectedServices}
           />
+
+          <div className="py-8 flex flex-col w-full space-y-2">
+            <button
+              className="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded duration-300"
+              onClick={() => alert('Em construção...')}
+            >
+              Confirmar pré-cadastro
+            </button>
+            <button
+              className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded duration-300"
+              onClick={() => alert('Em construção...')}
+            >
+              Remover pré-cadastro
+            </button>
+          </div>
         </div>
       </div>
     </>

@@ -1,9 +1,10 @@
 import React, { createContext, FC, useState } from 'react';
 
 export interface IJWTProfile {
+  _id: string;
   name: string;
   email: string;
-  role?: string;
+  roles?: string[];
 }
 
 export interface IAuthContextState {

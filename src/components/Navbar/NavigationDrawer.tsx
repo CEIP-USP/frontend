@@ -32,7 +32,7 @@ const NavigationDrawer = ({
             CEIP
           </Link>
           <div className="space-y-4 flex flex-col">
-            {links.map(({ name, url }: NavbarLink, index: number) => (
+            {links?.map(({ name, url }: NavbarLink, index: number) => (
               <Link
                 to={url}
                 key={index}

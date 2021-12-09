@@ -1,23 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Routes from './routes';
 import Navbar from './components/Navbar/Navbar';
 import { BrowserRouter } from 'react-router-dom';
-import { useAuth } from './hooks/Auth';
-
-type TypeLink = {
-  name: string;
-  url: string;
-};
+import { usePermissions } from './hooks/Permissions';
 
 function App() {
-  const { isAuthenticated } = useAuth();
-  const [links, setLinks] = useState<TypeLink[]>([]);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      setLinks([{ name: 'Meu perfil', url: '/profile' }]);
-    } else setLinks([]);
-  }, [isAuthenticated]);
+  const { links } = usePermissions();
 
   return (
     <div className="App">

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
-import { useAuth } from '../../hooks/Auth';
+import { useAuth } from '../hooks/Auth';
 import { BiError } from 'react-icons/bi';
 
 const Login = () => {

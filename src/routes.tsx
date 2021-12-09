@@ -5,7 +5,7 @@ import Search from './pages/Search';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import EditProfile from './pages/EditProfile';
-import Login from './pages/login/Login';
+import Login from './pages/Login';
 
 export default function Routes() {
   return (

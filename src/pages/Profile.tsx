@@ -17,7 +17,7 @@ function Profile() {
         <p className="text-xl md:text-3xl font-semibold">
           Olá, {profile?.name}!
         </p>
-        <p className="text-gray-500 md:text-xl">{profile?.role}</p>
+        <p className="text-gray-500 md:text-xl">{profile?.roles?.join(', ')}</p>
         <div className="space-x-2 my-6">
           <Link
             className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded duration-300"

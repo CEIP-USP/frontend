@@ -5,10 +5,12 @@ import { FormData, SetField } from './Forms.interface';
 const MainDataForm = ({
   formData,
   setField,
+  disabled,
   edit,
 }: {
   formData: FormData;
   setField: SetField;
+  disabled?: boolean;
   edit?: boolean;
 }): JSX.Element => {
   return (
@@ -30,6 +32,7 @@ const MainDataForm = ({
             value={formData.name}
             autoComplete="false"
             className="py-2 px-1 text-gray-900 outline-none block h-full w-full"
+            disabled={disabled}
             required
             onChange={(e) => setField(e.target.id, e.target.value)}
           />
@@ -47,6 +50,7 @@ const MainDataForm = ({
             value={formData.email}
             autoComplete="false"
             className="py-2 px-1 text-gray-900 outline-none block h-full w-full"
+            disabled={disabled}
             onChange={(e) => setField(e.target.id, e.target.value)}
           />
         </div>
@@ -64,6 +68,7 @@ const MainDataForm = ({
               value={formData.currentPassword}
               autoComplete="false"
               className="py-2 px-1 text-gray-900 outline-none block h-full w-full"
+              disabled={disabled}
               onChange={(e) => setField(e.target.id, e.target.value)}
             />
           </div>
@@ -80,6 +85,7 @@ const MainDataForm = ({
             value={formData.password}
             autoComplete="false"
             className="py-2 px-1 text-gray-900 outline-none block h-full w-full"
+            disabled={disabled}
             onChange={(e) => setField(e.target.id, e.target.value)}
           />
         </div>
@@ -99,6 +105,7 @@ const MainDataForm = ({
             value={formData.passwordConfirmation}
             autoComplete="false"
             className="py-2 px-1 text-gray-900 outline-none block h-full w-full"
+            disabled={disabled}
             onChange={(e) => setField(e.target.id, e.target.value)}
           />
         </div>
@@ -117,6 +124,7 @@ const MainDataForm = ({
               type="radio"
               value="CPF"
               checked={formData.document.type === 'CPF'}
+              disabled={disabled}
               onChange={(e) =>
                 setField('document', { type: e.currentTarget.value, value: '' })
               }
@@ -130,6 +138,7 @@ const MainDataForm = ({
               type="radio"
               value="RG"
               checked={formData.document.type === 'RG'}
+              disabled={disabled}
               onChange={(e) =>
                 setField('document', { type: e.currentTarget.value, value: '' })
               }
@@ -143,6 +152,7 @@ const MainDataForm = ({
               type="radio"
               value="undocumented"
               checked={formData.document.type === 'undocumented'}
+              disabled={disabled}
               onChange={(e) =>
                 setField('document', { type: e.currentTarget.value, value: '' })
               }
@@ -164,6 +174,7 @@ const MainDataForm = ({
               autoComplete="false"
               className="py-2 px-1 text-gray-900 outline-none block h-full w-full"
               value={formData.document.value}
+              disabled={disabled}
               onChange={(e) =>
                 setField(e.target.id, {
                   type: formData.document.type,
@@ -185,6 +196,7 @@ const MainDataForm = ({
               type="radio"
               value="sim"
               checked={formData.hasSecondShot === 'sim'}
+              disabled={disabled}
               onChange={(e) => setField('hasSecondShot', e.currentTarget.value)}
             />
             <span>Sim</span>
@@ -196,6 +208,7 @@ const MainDataForm = ({
               type="radio"
               value="nao"
               checked={formData.hasSecondShot === 'nao'}
+              disabled={disabled}
               onChange={(e) => setField('hasSecondShot', e.currentTarget.value)}
             />
             <span>Não</span>

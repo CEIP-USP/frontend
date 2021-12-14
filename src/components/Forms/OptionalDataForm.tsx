@@ -4,9 +4,11 @@ import { FormData, SetField } from './Forms.interface';
 const OptionalDataForm = ({
   formData,
   setField,
+  disabled,
 }: {
   formData: FormData;
   setField: SetField;
+  disabled?: boolean;
 }): JSX.Element => {
   return (
     <div className="space-y-6">
@@ -28,6 +30,7 @@ const OptionalDataForm = ({
             autoComplete="false"
             className="py-2 px-1 text-gray-900 outline-none block h-full w-full"
             value={formData.phone}
+            disabled={disabled}
             onChange={(e) => setField(e.target.id, e.target.value)}
           />
         </div>
@@ -44,6 +47,7 @@ const OptionalDataForm = ({
             autoComplete="false"
             className="py-2 px-1 text-gray-900 outline-none block h-full w-full"
             value={formData.address}
+            disabled={disabled}
             onChange={(e) => setField(e.target.id, e.target.value)}
           />
         </div>

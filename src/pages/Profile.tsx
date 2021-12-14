@@ -10,7 +10,7 @@ function Profile() {
   return (
     <RequireAuthN>
       <div className="bg-blue-700 h-1/4" />
-      <div className="h-screen flex flex-col items-center">
+      <div className="min-h-screen flex flex-col items-center">
         <div className="-mt-20 md:-mt-24 w-36 h-36 md:w-48 md:h-48 rounded-full bg-gray-300 border-2 border-gray-500 flex items-center justify-center">
           <FaRegUser size={60} />
         </div>

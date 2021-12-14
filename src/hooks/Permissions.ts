@@ -59,14 +59,22 @@ export const usePermissions = (roles: string[] = []) => {
     );
   }
 
-  function checkPageAccessPermission(_roles: string[]) {
+  function checkPermittedRoles(roles: string[]) {
     if (!isAuthenticated || !profile || !profile?.roles) return false;
 
-    return _roles.some((role) => (profile.roles || []).includes(role));
+    return roles.some((role) => (profile.roles || []).includes(role));
+  }
+
+  function checkBlockedRoles(roles: string[]) {
+    if (!isAuthenticated || !profile || !profile?.roles) return true;
+
+    return !roles.includes(profile?.roles[0] as string);
   }
 
   return {
     links: getAllowedLinks(profile?.roles || []),
-    hasAccess: checkPageAccessPermission(roles),
+    hasAccess: checkPermittedRoles(roles),
+    checkPermittedRoles,
+    checkBlockedRoles,
   };
 };

@@ -52,16 +52,17 @@ const ManageProfile = () => {
   ];
 
   useEffect(() => {
-    setConfirmed(profile?.role ? true : false);
+    setConfirmed(profile?.roles ? true : false);
   }, [profile]);
 
   useEffect(() => {
     // TODO: Fetch do profile
     // TODO: Remover hardcoded
     setProfile({
+      _id: 'handmade',
       name: 'Foo',
       email: 'foo@bar.com',
-      role: 'User',
+      roles: ['User'],
     });
   }, [id]);
 

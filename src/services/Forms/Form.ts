@@ -35,6 +35,9 @@ export class FormHandler {
     if (!this.password.trim())
       errors.push('O campo Senha precisa estar preenchido');
 
+    if (this.password.length < 8)
+      errors.push('O campo Senha precisa ter pelo menos 8 caracteres');
+
     if (!this.passwordConfirmation.trim())
       errors.push('O campo Confirmação de Senha precisa estar preenchido');
 
@@ -90,6 +93,8 @@ export class FormHandler {
       const response = error.response as ResponseData<RequestData>;
 
       switch (response?.status) {
+        case 400:
+          return Promise.reject(['Valores inválidos']);
         case 422:
           return Promise.reject([
             'A data de vacinação não pode ser uma data futura',

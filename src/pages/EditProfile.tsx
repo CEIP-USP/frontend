@@ -32,7 +32,7 @@ function EditProfile() {
     try {
       if (!profile) return;
       const http = new AxiosHttpClient();
-      const profileData = await http.get('/profiles', profile._id);
+      await http.get('/profiles', profile._id);
       //TODO: tratar dados do perfil no back
     } catch (e) {
       console.log(e);

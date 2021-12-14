@@ -4,6 +4,7 @@ function getHttpClientMock() {
   return {
     post: jest.fn(),
     put: jest.fn(),
+    get: jest.fn(),
   };
 }
 

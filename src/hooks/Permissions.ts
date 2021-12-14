@@ -48,24 +48,31 @@ export const usePermissions = (roles: string[] = []) => {
   const { isAuthenticated } = useAuth();
   const profile = useProfile();
 
-  function getAllowedLinks(role: string | undefined): TypeLink[] {
-    return isAuthenticated ? permissions[role as keyof IPermissions] : [];
+  function getAllowedLinks(_roles: string[] | undefined): TypeLink[] {
+    if (!isAuthenticated) return [];
+
+    _roles = _roles || [];
+
+    return _roles.reduce(
+      (acc, role) => acc.concat(permissions[role as keyof IPermissions] || []),
+      [] as TypeLink[]
+    );
   }
 
   function checkPermittedRoles(roles: string[]) {
-    if (!isAuthenticated) return false;
+    if (!isAuthenticated || !profile || !profile?.roles) return false;
 
-    return roles.includes(profile?.role as string);
+    return roles.some((role) => (profile.roles || []).includes(role));
   }
 
   function checkBlockedRoles(roles: string[]) {
-    if (!isAuthenticated) return true;
+    if (!isAuthenticated || !profile || !profile?.roles) return true;
 
-    return !roles.includes(profile?.role as string);
+    return !roles.includes(profile?.roles[0] as string);
   }
 
   return {
-    links: getAllowedLinks(profile?.role),
+    links: getAllowedLinks(profile?.roles || []),
     hasAccess: checkPermittedRoles(roles),
     checkPermittedRoles,
     checkBlockedRoles,

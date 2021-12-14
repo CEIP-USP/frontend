@@ -196,9 +196,10 @@ const parseTokenToProfile = (token: string) => {
     JwtPayload;
   if (decoded) {
     return {
+      _id: decoded._id,
       name: decoded.name,
       email: decoded.email,
-      role: decoded.role,
+      roles: decoded.roles,
     };
   }
   return undefined;

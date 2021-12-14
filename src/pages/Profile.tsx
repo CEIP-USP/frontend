@@ -7,6 +7,12 @@ import { useProfile } from '../hooks/Profile';
 
 function Profile() {
   const profile = useProfile();
+
+  function removeProfile() {
+    // TODO: Remover perfil de usuário do back
+    alert('Em construção...');
+  }
+
   return (
     <RequireAuthN>
       <div className="bg-blue-700 h-1/4" />
@@ -21,19 +27,19 @@ function Profile() {
         <div className="space-x-2 my-6">
           <Link
             className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded duration-300"
-            onClick={() => alert('Em construção...')}
-            to="#"
+            to="/profile/edit"
           >
             Editar dados
           </Link>
           <Link
-            className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded duration-300"
-            onClick={() => alert('Em construção...')}
             to="#"
+            className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded duration-300"
+            onClick={removeProfile}
           >
             Excluir conta
           </Link>
         </div>
+        {/* TODO: Passar os serviços utilizados pelo usuário */}
         <Table values={[]} />
       </div>
     </RequireAuthN>

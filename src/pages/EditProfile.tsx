@@ -3,8 +3,11 @@ import MainDataForm from '../components/Forms/MainDataForm';
 import OptionalDataForm from '../components/Forms/OptionalDataForm';
 import { Document } from '../components/Forms/Forms.interface';
 import { RequireAuthN } from '../components/hoc/RequireAuthN';
+import { useProfile } from '../hooks/Profile';
+import { AxiosHttpClient } from '../services/Http/AxiosHttpClient';
 
 function EditProfile() {
+  const profile = useProfile();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -22,10 +25,22 @@ function EditProfile() {
   });
 
   useEffect(() => {
-    //TODO: buscar dados do perfil no back
-  }, []);
+    fetchProfileData();
+  }, [profile]);
+
+  async function fetchProfileData() {
+    try {
+      if (!profile) return;
+      const http = new AxiosHttpClient();
+      await http.get('/profiles', profile._id);
+      //TODO: tratar dados do perfil no back
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   function handleSubmit() {
+    // TODO: Atualizar informações de usuário
     alert('Em construção...');
   }
 

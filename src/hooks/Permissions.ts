@@ -7,7 +7,6 @@ type TypeLink = {
 };
 
 interface IPermissions {
-  User: TypeLink[];
   Usuário: TypeLink[];
   'Controlador de Acesso': TypeLink[];
   Atendente: TypeLink[];
@@ -19,8 +18,6 @@ interface IPermissions {
 const baseLinks = [{ name: 'Meu perfil', url: '/profile' }];
 
 const permissions: IPermissions = {
-  //TODO: Remover 'User' após tradução do back
-  User: [...baseLinks],
   Usuário: [...baseLinks],
   'Controlador de Acesso': [...baseLinks].concat({
     name: 'Pesquisar perfis',
@@ -48,31 +45,38 @@ export const usePermissions = (roles: string[] = []) => {
   const { isAuthenticated } = useAuth();
   const profile = useProfile();
 
-  function getAllowedLinks(_roles: string[] | undefined): TypeLink[] {
-    if (!isAuthenticated) return [];
+  function getAllowedLinks(): TypeLink[] {
+    const roles = profile?.roles;
 
-    _roles = _roles || [];
+    if (!isAuthenticated || !roles) return [];
 
-    return _roles.reduce(
-      (acc, role) => acc.concat(permissions[role as keyof IPermissions] || []),
-      [] as TypeLink[]
-    );
+    const links = roles.reduce((acc, role) => {
+      const newLinks = permissions[role as keyof IPermissions] || [];
+      newLinks.forEach((link) => acc.add(link));
+      return acc;
+    }, new Set());
+
+    return Array.from(links) as TypeLink[];
   }
 
   function checkPermittedRoles(roles: string[]) {
-    if (!isAuthenticated || !profile || !profile?.roles) return false;
+    const userRoles = profile?.roles;
 
-    return roles.some((role) => (profile.roles || []).includes(role));
+    if (!isAuthenticated || !userRoles) return false;
+
+    return roles.some((role) => userRoles.includes(role));
   }
 
   function checkBlockedRoles(roles: string[]) {
-    if (!isAuthenticated || !profile || !profile?.roles) return true;
+    const userRoles = profile?.roles;
 
-    return !roles.includes(profile?.roles[0] as string);
+    if (!isAuthenticated || !userRoles) return true;
+
+    return !roles.some((role) => userRoles.includes(role));
   }
 
   return {
-    links: getAllowedLinks(profile?.roles || []),
+    links: getAllowedLinks(),
     hasAccess: checkPermittedRoles(roles),
     checkPermittedRoles,
     checkBlockedRoles,

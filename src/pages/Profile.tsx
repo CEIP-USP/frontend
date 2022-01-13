@@ -2,19 +2,24 @@ import React from 'react';
 import Table from '../components/Table';
 import { FaRegUser } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { RequireAuthN } from '../components/hoc/RequireAuthN';
 import { useProfile } from '../hooks/Profile';
+import { useProfileService } from '../hooks/ProfileService';
+import { WrapRequireAuthN } from '../components/WrapRequireAuthN';
 
 function Profile() {
   const profile = useProfile();
+  const profileService = useProfileService();
 
   function removeProfile() {
-    // TODO: Remover perfil de usuário do back
-    alert('Em construção...');
+    // TODO: Adicionar modal para confirmar a remoção do perfil
+    if (!profile?._id) return;
+    profileService.deleteProfile(profile._id).then(() => {
+      window.location.href = '/';
+    });
   }
 
   return (
-    <RequireAuthN>
+    <>
       <div className="bg-blue-700 h-1/4" />
       <div className="min-h-screen flex flex-col items-center">
         <div className="-mt-20 md:-mt-24 w-36 h-36 md:w-48 md:h-48 rounded-full bg-gray-300 border-2 border-gray-500 flex items-center justify-center">
@@ -42,8 +47,8 @@ function Profile() {
         {/* TODO: Passar os serviços utilizados pelo usuário */}
         <Table values={[]} />
       </div>
-    </RequireAuthN>
+    </>
   );
 }
 
-export default Profile;
+export default WrapRequireAuthN(Profile);

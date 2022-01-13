@@ -3,6 +3,26 @@ export type Document = {
   value?: string;
 };
 
+export enum DocumentTypes {
+  CPF = 'CPF',
+  RG = 'RG',
+}
+
+export const DocumentsTypesList = [
+  {
+    label: 'CPF',
+    value: DocumentTypes.CPF,
+  },
+  {
+    label: 'RG',
+    value: DocumentTypes.RG,
+  },
+  {
+    label: 'Não tenho documento',
+    value: '',
+  },
+];
+
 export type FormData = {
   name: string;
   email: string;

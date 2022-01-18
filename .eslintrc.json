@@ -18,13 +18,33 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["prettier", "react", "@typescript-eslint"],
+  "plugins": [
+    "prettier",
+    "react",
+    "@typescript-eslint"
+  ],
   "rules": {
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    "indent": ["error", 2, { "SwitchCase": 1 }],
-    "linebreak-style": ["error", "unix"],
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"],
+    "@typescript-eslint/ban-ts-comment": "off",
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
     "react/prop-types": "off",
     "prettier/prettier": "error"
   },

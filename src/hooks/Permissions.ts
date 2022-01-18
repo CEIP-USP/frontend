@@ -1,5 +1,5 @@
 import { useAuth } from './Auth';
-import { useProfile } from './Profile';
+import { useProfile } from './profile/useProfile';
 
 type TypeLink = {
   name: string;
@@ -41,7 +41,7 @@ const permissions: IPermissions = {
   }),
 };
 
-export const usePermissions = (roles: string[] = []) => {
+export const usePermissions = (permittedRoles: string[] = []) => {
   const { isAuthenticated } = useAuth();
   const profile = useProfile();
 
@@ -59,25 +59,25 @@ export const usePermissions = (roles: string[] = []) => {
     return Array.from(links) as TypeLink[];
   }
 
-  function checkPermittedRoles(roles: string[]) {
+  function checkPermittedRoles(_permittedRoles: string[]) {
     const userRoles = profile?.roles;
 
     if (!isAuthenticated || !userRoles) return false;
 
-    return roles.some((role) => userRoles.includes(role));
+    return _permittedRoles.some((role) => userRoles.includes(role));
   }
 
-  function checkBlockedRoles(roles: string[]) {
+  function checkBlockedRoles(_permittedRoles: string[]) {
     const userRoles = profile?.roles;
 
     if (!isAuthenticated || !userRoles) return true;
 
-    return !roles.some((role) => userRoles.includes(role));
+    return !_permittedRoles.some((role) => userRoles.includes(role));
   }
 
   return {
     links: getAllowedLinks(),
-    hasAccess: checkPermittedRoles(roles),
+    hasAccess: checkPermittedRoles(permittedRoles),
     checkPermittedRoles,
     checkBlockedRoles,
   };

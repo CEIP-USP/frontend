@@ -2,8 +2,8 @@ import React from 'react';
 import Table from '../components/Table';
 import { FaRegUser } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { useProfile } from '../hooks/Profile';
-import { useProfileService } from '../hooks/ProfileService';
+import { useProfile } from '../hooks/profile/useProfile';
+import { useProfileService } from '../hooks/profile/useProfileService';
 import { WrapRequireAuthN } from '../components/WrapRequireAuthN';
 
 function Profile() {
